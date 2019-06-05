@@ -12,7 +12,7 @@ First/co-first/correponding author papers marked in red.
 ## 2018
 
  - Corces MR, Granja JM, Shams S, Louie BH, Seoane JA, **Zhou W**, Silva TC, Groeneveld C, Wong CK, Cho SW, Satpathy AT, Mumbach MR, Hoadley KA, Robertson AG, Sheffield NC, Felau I, Castro MAA, Berman BP, Staudt LM, Zenklusen JC, Laird PW, Curtis C, The Cancer Genome Atlas Research Network, Greenleaf WJ, Chang HY. The chromatin accessibility landscape of primary human cancers. Science (2018)
- - Carpenter BL^, **Zhou W**^, Madaj Z, DeWitt AK, Ross JP, Grønbæk K, Liang G, Clark SJ, Molloy P, Jones PA. Mother-child transmission of epigenetic information by variable imprinting. Proceedings of National Academy of Sciences doi: 10.1073/pnas.1815005115 (2018)
+ - <span style="color:darkred">Carpenter BL^, **Zhou W**^, Madaj Z, DeWitt AK, Ross JP, Grønbæk K, Liang G, Clark SJ, Molloy P, Jones PA. Mother-child transmission of epigenetic information by variable imprinting. Proceedings of National Academy of Sciences doi: 10.1073/pnas.1815005115 (2018)</span>
  - Liu M, Thomas SL, DeWitt AK, **Zhou W**, Madaj ZB, Ohtani H, Baylin SB, Liang G, Jones PA. DNA and histone methyltransferase inhibitors cooperate to increase viral mimicry in cancer cells. Cancer Research (2018)
  - <span style="color:darkred">**Zhou W***, Triche Jr TJ., Laird PW and Shen H*. SeSAMe: Reducing artifactual detection of DNA methylation by Infinium BeadChips in genomic deletions. Nucleic Acids Research (2018)</span>
  - Ohtani H, Liu M, **Zhou W**, Liang G, Jones PA. Switching roles for DNA and histone methylation depend on evolutionary ages of human endogenous retroviruses. Genome Research, Jul 3. pii: gr.234229.118 (2018)
