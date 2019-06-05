@@ -1,6 +1,6 @@
 ---
 layout: page
-title: The Zhou Lab Homepage
+title: Hi, Welcome to Zhou Lab
 ---
 
-Welcome to The Zhou Lab! We study computational problems that arise in epigenetics and related biomedical applications. We provide big-data analytics to help better understand human genomics.
+Welcome! My lab creates new computational techniques for genomics and epigenetics. Our mission is to solve practical and pressing problems for biomedical research. We care about humanity and children's health.
