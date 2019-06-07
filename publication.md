@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Publication
+show-avatar: false
 ---
 
 _First, correponding author papers marked in_ <span style="color:darkred">red</span>.<br>

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Hi, Welcome!
+show-avatar: false
 ---
 
 # We work on <span class="typed" style="color:#a50509"></span>
