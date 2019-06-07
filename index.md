@@ -6,7 +6,7 @@ title: Hi, Welcome!
 # We work on <span class="typed" style="color:#a50509"></span>
 
 ### Multiple positions are available starting 2020!
-I am looking for trainees at all levels (undergraduates, graduate students, and postdoctoral fellows). 
+I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
 If interested, please send me an [email](mailto:zhouwanding@gmail.com)!
 
 ---
@@ -23,7 +23,7 @@ If interested, please send me an [email](mailto:zhouwanding@gmail.com)!
 
 <script>
 var typed = new Typed('.typed', {
-  strings: ["Epigenetics.", "Cancer Biology.", "Genomics.", "Bioinformatics.", "Big Data."],
+  strings: ["Epigenetics.", "Informatics.", "Cancer Genomics.", "Big Data."],
   typeSpeed: 100,
   backdelay: 2000,
   loop: true

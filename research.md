@@ -3,9 +3,9 @@ layout: page
 title: Research
 ---
 
-# Computational analytics for epigenetics
+# We creates new computational techniques for genomics and epigenetics.
 
-We creates new computational techniques for genomics and epigenetics. Our mission is to solve practical and pressing problems in biomedical research. We care about humanity and children's health.
+_**Our mission is to solve practical and pressing problems in biomedical research and to bridge computing and biomedical research for our humanity and the medical care of tomorrow.**_
 
 Epigenetics, mitotic-inheritable chemical modification of chromatin in eukaryotic cells, instructs interpretation of the genetic information inside the nucleus.  Our research goal is to understand how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity (**Zhou et al. 2018 Nature Genetics**). We are interested in developing and applying DNA methylation-based methods for the study of human, particularly children's disease including pediatric malignancies, developmental abnormalities, cognitive deficit and infectious disease.  By understanding how epigenetic markers respond to environmental perturbations such as early-life stress (**Carpenter and Zhou et al. 2018 PNAS**) and pathological processes, we are hoping to uncover biomarkers and to develop computational methods to aid translational research of human disease and to better patient outcomes and quality of life.
 
