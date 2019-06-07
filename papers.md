@@ -5,8 +5,8 @@ show-avatar: false
 ---
 
 _First, correponding author papers marked in_ <span style="color:darkred">red</span>.<br>
-_(^co-first author, * corresponding author)_
-See also [[Google Scholar]](https://scholar.google.com/citations?user=3NsfzcIAAAAJ&hl=en).
+_(^co-first author, * corresponding author)_<br>
+_See also_ [[Google Scholar]](https://scholar.google.com/citations?user=3NsfzcIAAAAJ&hl=en).
 
 ## 2019
 
