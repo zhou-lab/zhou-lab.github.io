@@ -5,7 +5,7 @@
 
 # If you are building a simple GitHub user page (https://username.github.io) then use these settings:
 url: "https://thezhoulab.github.io"
-baseurl: "lalala"
+baseurl: ""
 
 # If you are building a GitHub project page then use these settings:
 #url: "http://username.github.io/projectname"
@@ -27,7 +27,6 @@ navbar-links:
   Research: "research"
   People: "people"
   Publication: "publication"
-  Positions: "positions"
   Contact: "contact"
 
 # About Me: "aboutme"
@@ -78,11 +77,12 @@ author:
 # You can reorder the items to define the link order.
 # If you want to add a new link that isn't here, you'll need to also edit the file _data/SocialNetworks.yml
 social-network-links:
-  rss: true
-  email: "someone@example.com"
-  facebook: daattali
-  github: daattali
+  # rss: false
+  email: "zhouwanding@gmail.com"
+  facebook: wanding.zhou
+  github: zwdzwd
   twitter: zhouwanding
+  telephone: +14159998888
 #  reddit: yourname
 #  google-plus: +DeanAttali
 #  linkedin: daattali
@@ -92,7 +92,6 @@ social-network-links:
 #  instagram: deanat78
 #  youtube: user/deanat78
 #  spotify: yourname
-#  telephone: +14159998888
 #  steam: deanat78
 #  twitch: yourname
 #  yelp: yourname
@@ -206,6 +205,10 @@ exclude:
   - README.md
   - Vagrantfile
 
+maps:
+  google:
+    api_key: "AIzaSyAtkFnKRcD_SXI57sG7kJLHbyEstWEth14"
+
 # prose.io config
 prose:
   rooturl: '_posts'
@@ -261,6 +264,8 @@ prose:
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+# - jekyll-maps
+
 
 # Beautiful Jekyll / Dean Attali
 # 2fc73a3a967e97599c9763d05e564189

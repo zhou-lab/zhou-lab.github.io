@@ -117,6 +117,10 @@ img {
   {% endif %}
 }
 
+.navbar-custom .navbar-right {
+  margin-right: 0
+}
+
 .navbar-custom .nav li a {
   text-transform: uppercase;
   font-size: 12px;
@@ -382,9 +386,26 @@ footer .theme-by {
   height: 192px;
   width: 192px;
 }
+
 .post-preview .post-read-more {
   font-weight: 800;
 }
+
+/* .image-cropper { */
+/*     width: 200px; */
+/*     height: 200px; */
+/*     position: center; */
+/*     overflow: hidden; */
+/*     border-radius: 50%; */
+/* } */
+
+/* .profile-pic { */
+/*   display: flex; */
+/*   /\* margin: 0 auto; *\/ */
+/*   /\* margin-left: -0%; //centers the image *\/ */
+/*   height: 100%; */
+/*   width: auto; */
+/* } */
 
 @media only screen and (min-width: 768px) {
   .post-preview .post-title {
