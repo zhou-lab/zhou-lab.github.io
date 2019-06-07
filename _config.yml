@@ -26,7 +26,7 @@ navbar-links:
   Home: "index"
   # Research: "research"
   People: "people"
-  Publication: "publication"
+  Papers: "papers"
   Contact: "contact"
 
 # About Me: "aboutme"

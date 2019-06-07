@@ -1,13 +1,9 @@
 ---
 layout: page
 title: Find Us
-url: "http://google.com"
-location:
-    latitude: 39.946555
-    longitude: -75.195431
 ---
 
-# We are located at
+# Lab Address
 
 <div class="col-lg-6 col-md-6">
 <p>
