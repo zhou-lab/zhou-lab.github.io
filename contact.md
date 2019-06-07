@@ -20,6 +20,6 @@ PA 19104
 
 <div class="col-lg-6 col-md-6">
 <center>
-<iframe frameborder="0" style="border:0; min-width:399px; min-height:300px" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJkZBWL1zGxokRnRGQ3NOAWt8&key=AIzaSyAtkFnKRcD_SXI57sG7kJLHbyEstWEth14" allowfullscreen></iframe> 
+<iframe frameborder="0" style="border:0; min-width:360px; min-height:300px" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJkZBWL1zGxokRnRGQ3NOAWt8&key=AIzaSyAtkFnKRcD_SXI57sG7kJLHbyEstWEth14" allowfullscreen></iframe> 
 </center>
 </div>
