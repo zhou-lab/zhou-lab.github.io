@@ -4,7 +4,7 @@ title: Hi, Welcome!
 show-avatar: false
 ---
 
-# We work on <span class="typed" style="color:#a50509"></span>
+# We work on<br><span class="typed" style="color:#a50509"></span>
 
 ### Multiple positions are available starting 2020!
 I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
@@ -32,7 +32,7 @@ The other major part of our research is to develop informatics to support genomi
 
 <script>
 var typed = new Typed('.typed', {
-  strings: ["Epigenetics.", "Informatics.", "Cancer Genomics.", "Big Data."],
+  strings: ["Epigenetics.", "Informatics.", "Cancer.", "Genomics.", "Big Data."],
   typeSpeed: 100,
   backdelay: 2000,
   loop: true
