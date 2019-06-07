@@ -4,7 +4,7 @@ title: People
 show-avatar: false
 ---
 
-<img class="center-block" src="/img/people-wanding.jpg" alt="avatar" style="margin-top: 36pt; border-radius: 50%; max-height: 266pt;">
+<img class="center-block" src="/img/people-wanding2.jpg" alt="avatar" style="margin-top: 36pt; border-radius: 50%; max-height: 266pt;">
 
 @column
 
