@@ -17,7 +17,7 @@ As is obvious from the fact that you are looking at this, I will officially star
 ---
 
 <center>
-<a class="twitter-timeline" data-width="366" data-height="555" data-theme="dark" data-link-color="#19CF86" href="https://twitter.com/zhouwanding?ref_src=twsrc%5Etfw">Tweets by zhouwanding</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a class="twitter-timeline" data-width="366" data-height="555" data-theme="dark" data-link-color="#19CF86" href="https://twitter.com/zhouwanding?ref_src=twsrc%5Etfw">Tweets by Wanding</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </center>
 
 ---
