@@ -28,7 +28,7 @@ As is obvious from the fact that you are looking at this, I will officially star
 
 <script>
 var typed = new Typed('.typed', {
-  strings: ["DNA Methylation.", "Epigenetics.", "Informatics.", "Cancer.", "Genomics.", "Machine Learning."],
+  strings: ["DNA Methylation.", "Epigenetics.", "Cancer Genomics.", "Machine Learning."],
   typeSpeed: 100,
   backdelay: 2000,
   loop: true
