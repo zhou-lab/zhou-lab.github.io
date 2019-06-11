@@ -12,7 +12,7 @@ If interested, please send me an [email](mailto:zhouwanding@gmail.com)!
 
 ## News
 ### _6/7/2019_ End of The Beginning
-As is obvious from the fact that you are looking at this, I will officially start my group at CHOP & Penn beginning in January 2020, waving good bye to decade-long training as a Ph.D student and a postdoc.
+As is obvious from the fact that you are looking at this, I will officially start my group at CHOP & Penn beginning in January 2020, waving good bye to decade-long training as a Ph.D student and a postdoc. Feeling excited!
 
 ---
 
@@ -28,7 +28,7 @@ As is obvious from the fact that you are looking at this, I will officially star
 
 <script>
 var typed = new Typed('.typed', {
-  strings: ["Epigenetics.", "Informatics.", "Cancer.", "Genomics.", "Big Data."],
+  strings: ["DNA Methylation.", "Epigenetics.", "Informatics.", "Cancer.", "Genomics.", "Big Data."],
   typeSpeed: 100,
   backdelay: 2000,
   loop: true
