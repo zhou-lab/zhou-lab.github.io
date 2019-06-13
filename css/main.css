@@ -544,7 +544,7 @@ footer .theme-by {
     margin-top: 130px;
   }
   .intro-header.big-img {
-    margin-top: 91px;  /* Full navbar is small navbar + 20px padding on each side when expanded */
+    margin-top: 91px;  /* Full navbar is small navbar + 20px padding on each side when expanded, WZ: original value is 91, changed to 66  */
   }
   .intro-header.big-img .page-heading,
   .intro-header.big-img .post-heading  {
@@ -807,4 +807,17 @@ td.gutter {
   color: #808080;
   font-style: italic;
   font-size: 16px;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #336699;
+    border-color: #336699; /*set the color you want here*/
+}
+
+.btn-primary:hover .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #000033;
+    border-color: #000033; /*set the color you want here*/
 }

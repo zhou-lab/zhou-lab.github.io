@@ -7,6 +7,11 @@
   {% endif %}
 {% endif %}
 
+{% capture firstchar %}{{ include.link[1] | slice: 0 }}{% endcapture %}
+{% if firstchar == "#" %}
+  {% assign internal = false %}
+{% endif %}
+
 {% if internal %}
   {% capture linkurl %}{{ site.baseurl }}/{{ include.link[1] }}{% endcapture %}
 {% else %}
