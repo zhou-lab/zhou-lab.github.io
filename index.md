@@ -12,7 +12,7 @@ show-avatar: false
 
 ## Multiple positions are available starting 2020!
 I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
-If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program at the University of Pennsylvania.
+If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program.
 
 {% endcapture %}
 
