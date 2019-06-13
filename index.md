@@ -25,7 +25,7 @@ If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students
 
 _- We develop **computational methods to analyze DNA methylation assay of the next generation** - low-input/single-cell, long-read technology. We also create novel analytics to support technologies that integrate DNA methylation, genetic variation, chromatin accessibility and conformation._
 
-_- We do **integrative data analysis** for epigenetics. Our goal is to understand how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity._
+_- We do **integrative data analysis** to understand how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity._
 
 _- We develop **biomarkers and diagnostic methods** to aid translational research of human, esp. childhood disease including pediatric malignancies, developmental abnormalities, cognitive deficit and infectious disease. Our mission is to use data science to better patient outcomes and quality of life._
 
