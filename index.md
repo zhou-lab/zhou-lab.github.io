@@ -1,7 +1,7 @@
 ---
 layout: titlepage
 title: Hi, Welcome!
-subtitle: placeholder
+subtitle: Zhou Lab
 bigimg: ["/img/philly2.jpg"]
 show-avatar: false
 ---
