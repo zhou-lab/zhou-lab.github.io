@@ -2,7 +2,7 @@
 layout: titlepage
 title: Hi, Welcome!
 subtitle: Zhou Lab
-bigimg: ["/img/philly2.jpg"]
+bigimg: ["/img/philly3.jpg"]
 show-avatar: false
 ---
 
@@ -10,7 +10,7 @@ show-avatar: false
 
 {% capture noticesection %}
 
-## Multiple positions are available starting 2020!
+### Multiple positions are available starting 2020!
 I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
 If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program.
 
@@ -23,7 +23,7 @@ If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students
 
 ## Our Research
 
-_- We develop **computational methods to analyze DNA methylation assay of the next generation** - low-input/single-cell, long-read technology. We also create novel analytics to support technologies that integrate DNA methylation, genetic variation, chromatin accessibility and conformation._
+_- We develop **computational methods for DNA methylation assay of the next generation** - low-input/single-cell, long-read technology. We also create novel analytics to support technologies that integrate DNA methylation, genetic variation, chromatin accessibility and conformation._
 
 _- We do **integrative data analysis** to understand how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity._
 
@@ -41,7 +41,7 @@ _- We develop **biomarkers and diagnostic methods** to aid translational researc
 <a href="http://zwdzwd.io/papers/WandingZhou_CV_latest.pdf" class="btn btn-primary btn-md" role="button">Wanding Zhou's CV</a>
 
 "Before and After: A Comparison of Legacy and Harmonized TCGA Data at the Genomic Data Commons."
-<br>**Cell Systems 2019**
+<br>**Cell Systems 2019** <a href="http://zwdzwd.io/papers/2019CellSys.pdf"><i class="fa fa-file-text-o"></i></a>
 
 "Mother-child transmission of epigenetic information by variable imprinting"<br>**PNAS 2018** <a href="http://zwdzwd.io/papers/2018PNAS.pdf"><i class="fa fa-file-text-o"></i></a>
 
