@@ -12,7 +12,7 @@ show-avatar: false
 
 ### Multiple positions are available starting 2020!
 I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
-If interested, please send me an [email](mailto:zhouwanding@gmail.com)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program.
+If interested, please send me an [email](mailto:zhouw3@email.chop.edu)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program.
 
 {% endcapture %}
 
@@ -55,7 +55,7 @@ _- We develop **biomarkers and diagnostic methods** to aid translational researc
 
 "TransVar: a multi-level variant annotator for precision genomics.<br>**Nature Methods 2015** <a href="http://zwdzwd.io/papers/2015NM.pdf"><i class="fa fa-file-text-o"></i></a>
 
-"Bias from removing read duplication in ultra-deep sequencing experiments."<br>**Bioinformatics 2014** <a href="http://zwdzwd.io/papers/2014Bioinf.pdf"><i class="fa fa-file-text-o"></i></a>
+<!-- "Bias from removing read duplication in ultra-deep sequencing experiments."<br>**Bioinformatics 2014** <a href="http://zwdzwd.io/papers/2014Bioinf.pdf"><i class="fa fa-file-text-o"></i></a> -->
 
 {% endcapture %}
 
@@ -69,9 +69,11 @@ _- We develop **biomarkers and diagnostic methods** to aid translational researc
 <!-- News section -->
 {% capture newssection %}
 
-### End of The Beginning
+<button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>11/1/2019</button>
+The new Zhou lab is now open at CHOP.
+
 <button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>6/7/2019</button>
-Wanding officially signed the offer and will start his group at CHOP & Penn beginning in January 2020. He was waving good bye to decade-long training as a Ph.D student and a postdoc. He is feeling very excited!
+Wanding officially signed the offer and will start his group at CHOP & Penn around the beginning of 2020.
 
 {% endcapture %}
 
