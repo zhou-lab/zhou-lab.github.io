@@ -10,9 +10,7 @@ show-avatar: false
 
 {% capture noticesection %}
 
-### Multiple positions are available starting 2020!
-I am looking for lab members at all levels (undergraduates, graduate students, and postdoctoral fellows). 
-If interested, please send me an [email](mailto:zhouw3@email.chop.edu)! Students are welcome to join our lab through the [Genomics and Computational Biology](https://www.med.upenn.edu/gcb/index.shtml) graduate program.
+Students and postdocs who are interested in our research are welcome to send me an [email](mailto:zhouw3@email.chop.edu).
 
 {% endcapture %}
 
@@ -23,11 +21,13 @@ If interested, please send me an [email](mailto:zhouw3@email.chop.edu)! Students
 
 ## Our Research
 
-_- We develop **computational methods for DNA methylation assay of the next generation** - low-input/single-cell, long-read technology. We also create novel analytics to support technologies that integrate DNA methylation, genetic variation, chromatin accessibility and conformation._
+Our long-standing research interest is to understand tissue heterogeneity, stem cell homeostasis and cellular aging using third-generation sequencing technologies and advanced informatics.
 
-_- We do **integrative data analysis** to understand how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity._
+Specifically, we develop **DNA methylation assays**, such as single-molecule, long-read technologies and computational methods, to investigate **tissue heterogeneity** and **stem cell homeostasis**. We also create novel analytics to support technologies that integrate DNA methylation, genetic variation, chromatin accessibility and conformation.
 
-_- We develop **biomarkers and diagnostic methods** to aid translational research of human, esp. childhood disease including pediatric malignancies, developmental abnormalities, cognitive deficit and infectious disease. Our mission is to use data science to better patient outcomes and quality of life._
+We also integrate multi-omics data to study how cells translate epigenetic information into transcriptional regulation and eventually into phenotypical manifestation.  We focus on leveraging DNA methylation as a robust readout of the chromatin state and cell identity.
+
+The goal of our research is to develop biomarkers and diagnostic methods to aid translational research of human, esp. childhood disease including pediatric malignancies, developmental abnormalities, cognitive deficit and infectious disease. Our mission is to use data science to better patient outcomes and quality of life.
 
 {% endcapture %}
 
@@ -37,25 +37,27 @@ _- We develop **biomarkers and diagnostic methods** to aid translational researc
 {% capture papersection %}
 ## Selected Publications
 
+Gao\*, Parker\*, Reynolds\*, Silva\*, Wang\*, **Zhou\*** et al. (co-first authors ordered alphabetically) "Before and After: A Comparison of Legacy and Harmonized TCGA Data at the Genomic Data Commons."
+**Cell Systems 2019** <a href="http://zwdzwd.io/papers/2019CellSys.pdf"><i class="fa fa-file-text-o"></i></a>
+
+Carpenter\*, **Zhou\*** et al. "Mother-child transmission of epigenetic information by variable imprinting" **PNAS 2018** <a href="http://zwdzwd.io/papers/2018PNAS.pdf"><i class="fa fa-file-text-o"></i></a>
+
+**Zhou** et al. "SeSAMe: Reducing artifactual detection of DNA methylation by Infinium BeadChips in genomic deletions." **Nucleic Acids Research 2018** <a href="http://zwdzwd.io/papers/2018NAR.pdf"><i class="fa fa-file-text-o"></i></a>
+
+**Zhou\***, Dinh\* et al. "DNA methylation loss in late-replicating domains is linked to mitotic cell division."<br>**Nature Genetics 2018** <a href="http://zwdzwd.io/papers/2018NG.pdf"><i class="fa fa-file-text-o"></i></a>
+
+**Zhou** et al. "Comprehensive characterization, annotation and innovative use of Infinium DNA Methylation BeadChip probes." **Nucleic Acids Research 2017** <a href="http://zwdzwd.io/papers/2017NAR.pdf"><i class="fa fa-file-text-o"></i></a>
+
+Liu\*, Ohtani\*, **Zhou\*** et al. "Vitamin C increases viral mimicry induced by 5-aza-2'-deoxycytidine." **PNAS 2016** <a href="http://zwdzwd.io/papers/2016PNAS.pdf"><i class="fa fa-file-text-o"></i></a>
+
+**Zhou\***, Chen\* et al. "TransVar: a multi-level variant annotator for precision genomics. **Nature Methods 2015** <a href="http://zwdzwd.io/papers/2015NM.pdf"><i class="fa fa-file-text-o"></i></a>
+
+**Zhou** et al. "Bias from removing read duplication in ultra-deep sequencing experiments." **Bioinformatics 2014** <a href="http://zwdzwd.io/papers/2014Bioinf.pdf"><i class="fa fa-file-text-o"></i></a>
+
+More information about our publication:<br>
 <a href="http://zwdzwd.io/papers/Publications_latest.pdf" class="btn btn-primary btn-md" role="button">Publications</a>
 <a href="http://zwdzwd.io/papers/WandingZhou_CV_latest.pdf" class="btn btn-primary btn-md" role="button">Wanding Zhou's CV</a>
 
-"Before and After: A Comparison of Legacy and Harmonized TCGA Data at the Genomic Data Commons."
-<br>**Cell Systems 2019** <a href="http://zwdzwd.io/papers/2019CellSys.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"Mother-child transmission of epigenetic information by variable imprinting"<br>**PNAS 2018** <a href="http://zwdzwd.io/papers/2018PNAS.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"SeSAMe: Reducing artifactual detection of DNA methylation by Infinium BeadChips in genomic deletions."<br>**Nucleic Acids Research 2018** <a href="http://zwdzwd.io/papers/2018NAR.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"DNA methylation loss in late-replicating domains is linked to mitotic cell division."<br>**Nature Genetics 2018** <a href="http://zwdzwd.io/papers/2018NG.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"Comprehensive characterization, annotation and innovative use of Infinium DNA Methylation BeadChip probes."<br>**Nucleic Acids Research 2017** <a href="http://zwdzwd.io/papers/2017NAR.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"Vitamin C increases viral mimicry induced by 5-aza-2'-deoxycytidine."<br>**PNAS 2016** <a href="http://zwdzwd.io/papers/2016PNAS.pdf"><i class="fa fa-file-text-o"></i></a>
-
-"TransVar: a multi-level variant annotator for precision genomics.<br>**Nature Methods 2015** <a href="http://zwdzwd.io/papers/2015NM.pdf"><i class="fa fa-file-text-o"></i></a>
-
-<!-- "Bias from removing read duplication in ultra-deep sequencing experiments."<br>**Bioinformatics 2014** <a href="http://zwdzwd.io/papers/2014Bioinf.pdf"><i class="fa fa-file-text-o"></i></a> -->
 
 {% endcapture %}
 
@@ -69,11 +71,12 @@ _- We develop **biomarkers and diagnostic methods** to aid translational researc
 <!-- News section -->
 {% capture newssection %}
 
-<button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>11/1/2019</button>
-The new Zhou lab is now open at CHOP.
+<!-- <button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>11/1/2019</button> -->
+<!-- <button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>6/7/2019</button> -->
 
-<button style="background-color:#336699; color:white; border:none; border-radius:3px" disabled>6/7/2019</button>
-Wanding officially signed the offer and will start his group at CHOP & Penn around the beginning of 2020.
+- `11/25/2019` - Ethan Moyer joined the lab, welcome!
+- `11/01/2019` - The Zhou lab is open at CHOP.
+- `06/07/2019` - Wanding officially signed the offer and will start his group at CHOP & Penn around the beginning of 2020.
 
 {% endcapture %}
 
