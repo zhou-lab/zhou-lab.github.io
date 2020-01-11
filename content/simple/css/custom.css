@@ -1,0 +1,7 @@
+
+.zlab_caption {
+    /* 40 is min, 50 is max */
+    font-size: calc(40px + (50 - 40) * ((100vw - 400px) / (800 - 400)));
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
