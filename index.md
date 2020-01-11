@@ -2,7 +2,7 @@
 layout: titlepage
 title: Hi, Welcome!
 subtitle: Zhou Lab
-bigimg: ["/img/philly3.jpg"]
+bigimg: ["/img/philly4.jpg"]
 show-avatar: false
 ---
 
