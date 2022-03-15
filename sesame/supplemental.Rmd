@@ -180,6 +180,18 @@ in-band channel and out-of-band channels. This rescues probes with SNP hitting
 the extension base and hence switching color channel. More details can be found
 in [Zhou et al 2017](https://academic.oup.com/nar/article/45/4/e22/2290930).
 
+## Replicate Probes
+
+As you notice the probe ID has the suffix which distinguishes replicate
+probes. These replicate probes can be collapsed to the cg prefix by adding the
+`collapseToPfx=TRUE` option in `openSesame` and `getBetas` function (if that
+function is used explicitly).
+
+```{r nh4, message=TRUE, eval=FALSE}
+sdf = sesameDataGet('MMB.1.SigDF')
+betas = openSesame(sdf, prep="TQCDPB", collapseToPfx=TRUE)
+```
+
 # Preprocessing Functions
 
 ## Detection P-value
@@ -507,6 +519,146 @@ To visualize genome neighborhood using probe names, we will call
 
 ```{r model17, message=FALSE, fig.width=6}
 visualizeProbes(c("cg02382400", "cg03738669"), betas, platform='HM450')
+```
+
+# Tissue methylation signature
+
+Let's load beta values from SeSAMeData
+
+```{r nh14}
+library(SummarizedExperiment)
+betas = assay(sesameDataGet("MMB.10.SE.tissue"))[,1:2]
+```
+
+Compare mouse array data with mouse tissue references. This will return a grid
+object that contrasts the traget sample with pre-built mouse tissue reference.
+```{r nh15, eval=FALSE}
+compareMouseTissueReference(betas)
+```
+
+# Strain inference
+
+One can also visualize the actual SNP data for strain inference by the
+following. The target sample is plotted as a vertical bar on the right of the
+signature heatmap.
+
+```{r nh11, fig.width=6, fig.height=8, eval=TRUE}
+sdf = sesameDataGet("MMB.1.SigDF") # an example dataset
+inferStrain(sdf, return.strain = TRUE) # return strain as a string
+compareMouseStrainReference(getBetas(sdf))
+```
+
+As expected, the variant configuration is consistent with the NOD strain.
+
+# KnowYourCG visualization
+
+There are many creative ways one can visualize enrichment results. Here we
+demonstrate a few popular ones supported in sesame. Dot plot:
+
+```{r ky10, echo=TRUE, eval=TRUE, message=FALSE}
+library(SummarizedExperiment)
+df <- rowData(sesameDataGet('MM285.tissueSignature'))
+query <- df$Probe_ID[df$branch == "fetal_liver" & df$type == "Hypo"]
+results <- testEnrichment(query, "TFBS")
+```
+
+```{r ky11, fig.width=5, fig.height=3.5}
+KYCG_plotDot(results, n_max=20)
+```
+
+or a bar plot:
+
+```{r ky12, fig.width=6.5, fig.height=4, message=FALSE}
+KYCG_plotBar(results, n_max=15)
+```
+ 
+or a volcano plot. Here we need a two-tailed test to show both enrichment and
+depletion (the default is one-tailed):
+
+```{r ky13, fig.width=6, fig.height=4, warning=FALSE, message=FALSE}
+query <- df$Probe_ID[df$branch == "fetal_brain" & df$type == "Hypo"]
+results_2tailed <- testEnrichment(query, "TFBS", alternative = "two.sided")
+KYCG_plotVolcano(results_2tailed)
+```
+
+and a Waterfall plot:
+
+```{r ky14, fig.width=6, fig.height=4.5}
+KYCG_plotWaterfall(results)
+```
+
+If you have a list of cg groups and they were tested against the same set of
+databases, you can make a point range plot to summarize the overall trend:
+
+```{r ky15, fig.width=3.5, fig.height=4}
+## pick some big TFBS-overlapping CpG groups
+cg_lists <- KYCG_getDBs("MM285.TFBS", silent=TRUE)
+queries <- cg_lists[(sapply(cg_lists, length) > 40000)]
+res <- lapply(queries, function(q) {
+    testEnrichment(q, "MM285.chromHMM", silent=TRUE)})
+
+## note the input of the function is a list of testEnrichment outputs.
+KYCG_plotPointRange(res)
+```
+
+plot enrichment over metagene:
+
+KnowYourCG builds in several metagene/meta-feature coordinates. One can test
+enrichment over meta genes or simply plot the mean over metagenes:
+
+```{r ky20, plot-meta1, fig.width=5, fig.height=4, eval=TRUE}
+sdf <- sesameDataGet("EPIC.1.SigDF")
+KYCG_plotMeta(getBetas(sdf))
+```
+
+Here we picked some transcription factor binding sites-overlapping CpGs and
+tested against chromHMM states. As expected, most of these CGs are enriched at
+promoters and enhancers but depleted at heterchromatic regions.
+
+# KYCG feature aggregation
+
+In addition to hypothesis testing, knowYourCG also uses the curated database
+sets for feature engineering. We have a pre-curated summarized experiment
+containing a samplesheet and beta value matrix corresponding to about 467 MM285
+samples with 20k probes. The samplesheet includes UIDs pertaining to the sample
+and several categorical/numerical features. To use this data for a linear
+model, we will extract the most relevant prevalent features.
+
+``` {r ky24, echo=TRUE, eval=TRUE, message=FALSE}
+library(SummarizedExperiment)
+betas = assay(sesameDataGet('MM285.467.SE.tissue20Kprobes'))
+```
+
+We have found that it is computationally expensive to perform a linear
+model/generalized linear model on a feature set of individual
+CpGs. Additionally, interpreting the mechanism the significantly contributing
+CpGs is non-trivial due to their complex interactions. We hope to leverage
+these pre-curated database sets by using their beta value summary statistics as
+features instead. We will calculate the summary statistics for the betas matrix
+using a list of database sets. The default is to calculate the mean.
+
+```{r ky25}
+stats <- dbStats(betas, 'MM285.chromHMM')
+head(stats[, 1:5])
+```
+
+Just from the few database set means above, we can see that TSS are
+consistently hypomethylated, which is consistent with known biology.
+
+```{r ky26, fig.width=6, fig.height=6}
+library(wheatmap)
+WHeatmap(both.cluster(stats)$mat, xticklabels=TRUE,
+    cmp=CMPar(stop.points=c("blue","yellow")))
+```
+
+# KYCG annotation
+
+We can also use KYCG database to annotate an arbitrary probe set. This can be
+done using the `KYCG_annoProbes` function:
+
+```{r ky30}
+query <- names(sesameData_getManifestGRanges("MM285"))
+anno <- KYCG_annoProbes(query, "designGroup", silent = TRUE)
 ```
 
 # Session Info
