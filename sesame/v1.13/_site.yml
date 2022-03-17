@@ -4,22 +4,22 @@ navbar:
   left:
     - text: "Basics"
       icon: fa-home
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/sesame.html
+      href: sesame.html
     - text: "QC"
       icon: fa-check-circle
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/QC.html
+      href: QC.html
     - text: "Non-human Array"
       icon: fa-paw
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/nonhuman.html
+      href: nonhuman.html
     - text: "Modeling"
       icon: fa-cogs
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/modeling.html
+      href: modeling.html
     - text: "Inference"
       icon: fa-database
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/inferences.html
+      href: inferences.html
     - text: "KnowYourCG"
       icon: fa-binoculars
-      href: https://bioconductor.org/packages/release/bioc/vignettes/sesame/inst/doc/KYCG.html
+      href: KYCG.html
     - text: "Supplemental"
       icon: fa-book
-      href: https://zhou-lab.github.io/sesame/supplemental.html
+      href: supplemental.html
