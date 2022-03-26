@@ -53,7 +53,7 @@ location of the cached annotation data on your local computer using:
 tools::R_user_dir("ExperimentHub", which="cache")
 ```
 
-# openSesame components
+# openSesame Components
 
 ## Read IDATs
 
@@ -196,7 +196,64 @@ betas = openSesame(sdf, prep="TQCDPB", collapseToPfx=TRUE)
 
 ## Quality Mask
 
-UNDER CONSTRUCTION
+The NAs in beta values are controlled by the `mask` column in the `SigDF`
+object. The `mask` column is a boolean vector that specifies which probe should
+be NA-masked when `getBetas` function is called. For example, the following
+illustrate the relationship between the `mask` column in `SigDF` and NAs in the
+beta values.
+
+```{r}
+sdf = sesameDataGet('EPIC.1.SigDF')
+sdf_withNA = pOOBAH(sdf)
+sum(sdf_withNA$mask)   # number of probes to be NA-masked
+sum(is.na(getBetas(sdf_withNA))) # should be the same as above
+sum(is.na(getBetas(sdf_withNA, mask=FALSE))) # turn off NA-masking
+sum(is.na(getBetas(resetMask(sdf_withNA))))  # reset mask, also expect 0
+```
+
+Note that `mask` in `SigDF` does not actually remove the probe reading but only
+specifies how SeSAMe currently views the measurement (as unreliable). This is
+how SeSAMe gives finer control over different preprocessing functions, e.g., to
+make them only use reliable probes or species-specific. One can add more probes
+to the mask with the `addMask` function. Other functions such as the detection
+p-value calculation (e.g., `pOOBAH`), also modifies `mask`. NA-masking
+influences other normalization and preprocessing functions. Therefore one
+should have them set for the preprocessing methods mentioned below. No mask is
+set when a new `SigDF` is returned from the `readIDATpair` function.
+
+The `qualityMask` function does experiment-independent masking using
+pre-defined probe sets. For example, probes with cross hybridization or are
+influenced by common polymorphisms can be masked using this function. For example, the following function add probes with low mapping quality to the mask:
+
+```{r}
+sdf_masked = qualityMask(sdf, "low_mapq")
+```
+
+For a list of options of such pre-defined sets one can use the
+`listAvailableMasks()` function.
+
+```{r, message=FALSE}
+listAvailableMasks("EPIC")[,c("mask_name","mask_recommended","mask_group")]
+sdf_masked = qualityMask(sdf)          # using the recommended mask
+```
+
+Note there is a "recommended" mask, it's the merge of several mask sets
+specified in the `mask_recommended` column. Details of the recommended mask can
+be found in [Zhou et
+al. 2017](https://academic.oup.com/nar/article/45/4/e22/2290930).
+
+Most of the masking comes from two major sources:
+
+1) **Experiment-independent Probe Masking** due to design issues (see [Zhou et
+al. 2017](https://www.ncbi.nlm.nih.gov/pubmed/27924034)). This masking can be
+added by the `qualityMask` function. Currently we support EPIC, MM285, HM450
+and HM27 and should be used in `openSesame` by default.
+
+1) **Experiment-dependent Probe Masking** based on signal detection p-value
+([Zhou et al. 2018](https://www.ncbi.nlm.nih.gov/pubmed/30085201)). Probes with
+p-value higher than a threshold (default: 0.05, but can also be raised to allow
+more lenient masking) are masked (see following for detection p-value
+calculation using the `pOOBAH` method).
 
 ## Detection P-value
 
@@ -207,9 +264,11 @@ and probes with too much influence from signal background. We recommend the
 calibrating the distribution of the signal background:
 
 ```{r}
-sum(sdf$mask)  # before pOOBAH, only quality mask
-sum(pOOBAH(sdf)$mask) # after pOOBAH, expect more probes
-sum(pOOBAH(resetMask(sdf))$mask) # pOOBAH-only masking
+sdf = sesameDataGet('EPIC.1.SigDF')
+sum(pOOBAH(sdf)$mask) # after pOOBAH, expect some probes
+sum(pOOBAH(qualityMask(sdf))$mask) # combined with qualityMask
+sum(is.na(openSesame(sdf, prep="QP"))) # same as above
+prepSesameList()                       # Q:qualityMask; P:pOOBAH
 ```
 
 Sometimes one would want to calculation detection p-value without modifying the
@@ -219,7 +278,7 @@ later.
 
 ```{r}
 pvals = pOOBAH(sdf, return.pval=TRUE)
-sdf2 = addMask(sdf, pvals > 0.05) # default, recommend between 0.05 and 0.2
+sdf_masked = addMask(sdf, pvals > 0.05) # recommend between 0.05 and 0.2
 ```
 
 ## Background Subtraction
@@ -316,66 +375,6 @@ the following function:
 ```{r}
 head(controls(sdf))
 ```
-
-## Masking
-
-If you call getBetas as is, you should have noticed that some of the beta
-values show up having NA values. This NA-masking is controlled internally using
-the `mask` column in `SigDF`. To check probes to be NA-masked in a `SigDF`, one
-can use the `mask` function
-
-```{r}
-sum(sdf$mask)   # number of probes to be NA-masked
-sum(is.na(getBetas(sdf))) # should be the same as above
-```
-
-Please note that `mask` in `SigDF` does not actually remove the probe reading
-but only specify how SeSAMe currently views the measurement (as
-unreliable). One can add more probes to the mask with the `addMask`
-function. Other functions such as the detection p-value calculation (e.g.,
-`pOOBAH`), also modifies `mask`. NA-masking influences other normalization and
-preprocessing functions. Therefore one should have them set for the
-preprocessing methods mentioned below. No mask is set by default unless done
-through preprocessing functions. The `qualityMask` function does some
-recommended experiment-independent masking. For example, probes with cross
-hybridization or are influenced by common polymorphisms are masked using this
-function. For more details of some of the maskings in `qualityMask` and
-`listAvailableMasks(sdf)`, one can refer to [Zhou et
-al. 2017](https://academic.oup.com/nar/article/45/4/e22/2290930).
-
-```{r, message=FALSE}
-sdf = qualityMask(sesameDataGet('EPIC.1.SigDF'))
-```
-
-One can clear existing masking by the `resetMask` function.
-
-```{r}
-sum(sdf$mask)  # before resetting
-sum(resetMask(sdf)$mask)  # after resetting, expect 0
-```
-
-The `getBetas` function can also ignore NA-masking when extracting beta
-values by taking a `mask=FALSE` option:
-
-```{r}
-sum(is.na(getBetas(sdf, mask=FALSE)))  # expect 0
-```
-
-In all, most of the masking comes from two major sources:
-
-1) **Experiment-dependent Probe Masking** based on signal detection p-value
-([Zhou et al. 2018](https://www.ncbi.nlm.nih.gov/pubmed/30085201)). Probes with
-p-value higher than a threshold (default: 0.05) are masked (see following for
-detection p-value calculation using the `pOOBAH` method).
-
-2) **Experiment-independent Probe Masking** due to design issues. This is
-typically designated in the `mask` column of the manifest (see 
-[Zhou et al. 2017](https://www.ncbi.nlm.nih.gov/pubmed/27924034)): This masking
-supports EPIC, MM285, HM450 and HM27 and is turned on by default and can also be
-explicitly added by the function `qualityMask`:
-
-## Save SigDF as Plain Texts
-
 `SigDF` can be written as and read from plain text file (e.g, tab-delimited
 files and comma-delimited files) with the compliant column names (see above).
 
@@ -401,7 +400,7 @@ multiple ways. One can sesamize a minfi `RGChannelSet` which returns a
 `GenomicRatioSet`.  See [sesamize](https://github.com/zwdzwd/sesamize) for more
 detail.
 
-# Quality control plots
+# Quality Control
 
 ## QC Stats Bar plot
 
@@ -454,7 +453,7 @@ sample swaps.
 
 ```{r fig.height=5, fig.width=5, message=FALSE}
 sdfs <- sesameDataGet("EPIC.5.SigDF.normal")
-sesameQC_plotHeatSNPs(sdfs[1:3])
+sesameQC_plotHeatSNPs(sdfs)
 ```
 
 One can also output the allele frequencies and output a VCF file with
@@ -468,7 +467,7 @@ head(formatVCF(sdf))
 One can output to actual VCF file with a header by `formatVCF(sdf,
 vcf=path_to_vcf)`.
 
-# Bisulfite conversion
+## Bisulfite conversion
 
 Infinium platforms are intrinsically robust to incomplete bisulfite conversion
 as non-converted probes would fail to hybridize to the target. Residual
@@ -525,11 +524,11 @@ To visualize genome neighborhood using probe names, we will call
 visualizeProbes(c("cg02382400", "cg03738669"), betas, platform='HM450')
 ```
 
-# Tissue methylation signature
+# Tissue Methylation Signature
 
 Let's load beta values from SeSAMeData
 
-```{r nh14}
+```{r nh14, message=FALSE}
 library(SummarizedExperiment)
 betas = assay(sesameDataGet("MMB.10.SE.tissue"))[,1:2]
 ```
@@ -540,7 +539,7 @@ object that contrasts the traget sample with pre-built mouse tissue reference.
 compareMouseTissueReference(betas)
 ```
 
-# Strain inference
+# Strain Inference
 
 One can also visualize the actual SNP data for strain inference by the
 following. The target sample is plotted as a vertical bar on the right of the
@@ -554,7 +553,7 @@ compareMouseStrainReference(getBetas(sdf))
 
 As expected, the variant configuration is consistent with the NOD strain.
 
-# KnowYourCG visualization
+# KnowYourCG Visualization
 
 There are many creative ways one can visualize enrichment results. Here we
 demonstrate a few popular ones supported in sesame. Dot plot:
@@ -619,7 +618,7 @@ Here we picked some transcription factor binding sites-overlapping CpGs and
 tested against chromHMM states. As expected, most of these CGs are enriched at
 promoters and enhancers but depleted at heterchromatic regions.
 
-# KYCG feature aggregation
+# KYCG Feature Aggregation
 
 In addition to hypothesis testing, knowYourCG also uses the curated database
 sets for feature engineering. We have a pre-curated summarized experiment
@@ -655,7 +654,7 @@ WHeatmap(both.cluster(stats)$mat, xticklabels=TRUE,
     cmp=CMPar(stop.points=c("blue","yellow")))
 ```
 
-# KYCG annotation
+# KYCG Annotation
 
 We can also use KYCG database to annotate an arbitrary probe set. This can be
 done using the `KYCG_annoProbes` function:
