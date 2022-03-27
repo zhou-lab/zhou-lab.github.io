@@ -53,7 +53,7 @@ location of the cached annotation data on your local computer using:
 tools::R_user_dir("ExperimentHub", which="cache")
 ```
 
-# openSesame Components
+# openSesame Components {#openSesame}
 
 ## Read IDATs
 
