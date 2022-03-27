@@ -400,7 +400,7 @@ multiple ways. One can sesamize a minfi `RGChannelSet` which returns a
 `GenomicRatioSet`.  See [sesamize](https://github.com/zwdzwd/sesamize) for more
 detail.
 
-# Quality Control
+# Quality Control {#qc}
 
 ## QC Stats Bar plot
 
@@ -483,7 +483,7 @@ bisConversionControl(sdf)
 
 # Visualization
 
-## Track View
+## Track View {#track}
 
 SeSAMe provide utilities to view methylation reading in a track view.  Next, we
 will demonstrate how to create track view with transcript position marked
@@ -553,7 +553,7 @@ compareMouseStrainReference(getBetas(sdf))
 
 As expected, the variant configuration is consistent with the NOD strain.
 
-# KnowYourCG Visualization
+# KnowYourCG Visualization {#kycg_vis}
 
 There are many creative ways one can visualize enrichment results. Here we
 demonstrate a few popular ones supported in sesame. Dot plot:
