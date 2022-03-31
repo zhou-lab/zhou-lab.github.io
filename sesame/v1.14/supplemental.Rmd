@@ -12,45 +12,16 @@ vignette: >
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-library(sesame)
-library(dplyr)
 options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 This vignette book documents the SeSAMe package in full to supplement the
 vignettes hosted on the Bioconductor.
 
-# Preparation
-
-**CRITICAL** As sesame and sesameData are under active development, this
-  documentation is specific to the following version of sesame, sesameData and
-  ExperimentHub:
-
-```{r}
-sapply(c("sesame","sesameData","ExperimentHub"),
-    function(x) as.character(packageVersion(x)))
-```
-
-We recommend updating your R, ExperimentHub, sesameData and sesame to use this
-documentation consistently. If you install directly from github, you need to
-make sure the compatible ExperimentHub is installed.
-
-**CRITICAL:** After a new installation, one needs to cache the associated
-annotation data using the following command.
-This needs to be done only once per SeSAMe installation/update.
-
-```{r}
+```{r message=FALSE}
+library(sesame)
+library(dplyr)
 sesameDataCache()
-```
-
-This function caches the needed SeSAMe annotation for all the supported
-platforms. SeSAMe annotation data is managed by the
-[sesameData](https://tinyurl.com/58ny3rrt) package which uses the
-[ExperimentHub](https://tinyurl.com/2p873tez) infrastructure.  You can find the
-location of the cached annotation data on your local computer using:
-
-```{r}
-tools::R_user_dir("ExperimentHub", which="cache")
 ```
 
 # The SigDF Class
@@ -531,14 +502,14 @@ visualizeSegments(segs)
 
 Let's load beta values from SeSAMeData
 
-```{r nh14, message=FALSE, fig.width=6, fig.height=8}
+```{r nh14, message=FALSE}
 library(SummarizedExperiment)
 betas = assay(sesameDataGet("MMB.10.SE.tissue"))[,1:2]
 ```
 
 Compare mouse array data with mouse tissue references. This will return a grid
 object that contrasts the traget sample with pre-built mouse tissue reference.
-```{r nh15}
+```{r nh15, fig.width=6, fig.height=8}
 compareMouseTissueReference(betas)
 ```
 
