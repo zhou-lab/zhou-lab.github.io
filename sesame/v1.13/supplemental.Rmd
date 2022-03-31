@@ -53,6 +53,56 @@ location of the cached annotation data on your local computer using:
 tools::R_user_dir("ExperimentHub", which="cache")
 ```
 
+# The SigDF Class
+
+SeSAMe design includes a light-weight fullly-exposed infrastructure of the
+internal signal intensities. Central to this infrastructure is the `SigDF` data
+structure, which is a `data.frame` subclass. One can treat it like a regulator
+`data.frame` with 7 specific columns, i.e., Probe_ID, MG, MR, UG, UR, col and
+mask. The `col` column specifies the color channel and takes `G`, `R` and `2`.
+The Infinium-I probes carry `G` and `R` in col to indicate the designed
+color. This infrastructure is nimble to allow change of color channel, and mask
+(the scope of usable probes) depending on the use of the array on different
+species, strain, population etc. For example, the following data.frame
+operation let you easily peek into the signal intensities.
+
+```{r}
+sdf = sesameDataGet('EPIC.1.SigDF') # an example SigDF
+head(sdf) # peek into the internals
+head(sdf[sdf$col != "2",])      # Infinium-I probes
+head(sdf[sdf$col == "2",])      # Infinium-II probes
+```
+
+One can summarize resulting `SigDF` using the 'sesameQC_calcStats'
+function (more QC can be found in the [quality control vignette](QC.html)).
+
+```{r base4}
+sesameQC_calcStats(sdf, "numProbes")
+```
+
+Sometimes, particularly with older arrays, there might exist a `controls`
+attributes to contain the control probe information. In the new manifest, the
+control probes will be parsed and included as regulator probes (except with a
+`ctl` prefix in the probe ID). The control probe annotation can be found using
+the following function:
+
+```{r}
+head(controls(sdf))
+```
+
+`SigDF` can be written as and read from plain text file (e.g, tab-delimited
+files and comma-delimited files) with the compliant column names (see above).
+
+```{r}
+tsv_file_path = sprintf("%s/sigdf.tsv", tempdir())
+sdf_write_table(sdf, file=tsv_file_path, sep="\t", quote=FALSE) # save as tsv
+sdf2 = sdf_read_table(tsv_file_path)                            # read back
+
+csv_file_path = sprintf("%s/sigdf.csv", tempdir())
+sdf_write_table(sdf, file=csv_file_path, sep=",") # save as csv
+sdf2 = sdf_read_table(csv_file_path, sep=",")     # read back
+```
+
 # openSesame Components {#openSesame}
 
 ## Read IDATs
@@ -84,20 +134,7 @@ sdf = readIDAT("idat_folder/GSM2178224")           # Example 2
 ```
 
 Note that SeSAMe automatically detects and matches up the green and red signal
-files for the same sample. `SigDF` is and can be regarded and treated as a
-regular `data.frame`:
-
-```{r base3}
-sdf = sesameDataGet('EPIC.1.SigDF') # an example SigDF
-head(sdf) # peek into the internals
-```
-
-One can summarize resulting `SigDF` using the 'sesameQC_calcStats'
-function (more QC can be found in the [quality control vignette](QC.html)).
-
-```{r base4}
-sesameQC_calcStats(sdf, "numProbes")
-```
+files for the same sample.
 
 ## Custom Arrays
 
@@ -187,9 +224,10 @@ probes. These replicate probes can be collapsed to the cg prefix by adding the
 `collapseToPfx=TRUE` option in `openSesame` and `getBetas` function (if that
 function is used explicitly).
 
-```{r nh4, message=TRUE, eval=FALSE}
+```{r nh4, message=TRUE}
 sdf = sesameDataGet('MMB.1.SigDF')
-betas = openSesame(sdf, prep="TQCDPB", collapseToPfx=TRUE)
+head(openSesame(sdf, prep=""))  # before collapsing to prefix
+head(openSesame(sdf, prep="", collapseToPfx=TRUE)) # collapsed to prefix
 ```
 
 # Preprocessing Functions {#prepfuns}
@@ -348,58 +386,6 @@ sesameQC_plotBetaByDesign(sdf, main="Before", xlab="\beta")
 sesameQC_plotBetaByDesign(matchDesign(sdf), main="After", xlab="\beta")
 ```
 
-# The SigDF Class
-
-SeSAMe design includes a light-weight fullly-exposed infrastructure of the
-internal signal intensities. Central to this infrastructure is the `SigDF` data
-structure, which is a `data.frame` subclass. One can treat it like a regulator
-`data.frame` with 7 specific columns, i.e., Probe_ID, MG, MR, UG, UR, col and
-mask. The `col` column specifies the color channel and takes `G`, `R` and `2`.
-The Infinium-I probes carry `G` and `R` in col to indicate the designed
-color. This infrastructure is nimble to allow change of color channel, and mask
-(the scope of usable probes) depending on the use of the array on different
-species, strain, population etc. For example, the following data.frame
-operation let you easily peek into the signal intensities.
-
-```{r}
-head(sdf[sdf$col != "2",])      # Infinium-I probes
-head(sdf[sdf$col == "2",])      # Infinium-II probes
-```
-
-Sometimes, particularly with older arrays, there might exist a `controls`
-attributes to contain the control probe information. In the new manifest, the
-control probes will be parsed and included as regulator probes (except with a
-`ctl` prefix in the probe ID). The control probe annotation can be found using
-the following function:
-
-```{r}
-head(controls(sdf))
-```
-`SigDF` can be written as and read from plain text file (e.g, tab-delimited
-files and comma-delimited files) with the compliant column names (see above).
-
-```{r}
-tsv_file_path = sprintf("%s/sigdf.tsv", tempdir())
-sdf_write_table(sdf, file=tsv_file_path, sep="\t", quote=FALSE) # save as tsv
-sdf2 = sdf_read_table(tsv_file_path)                            # read back
-
-csv_file_path = sprintf("%s/sigdf.csv", tempdir())
-sdf_write_table(sdf, file=csv_file_path, sep=",") # save as csv
-sdf2 = sdf_read_table(csv_file_path, sep=",")     # read back
-```
-
-# Interaction with Other Tools
-
-Previously, the signal was implemented an S4 implementation in `SigSet`
-complies with Bioconductor guidelines, and for backwards compatibility,
-`SigSet` can be transformed to a `SigDF` using the `SigSetToSigDF` function
-`sesame:::SigSetToSigDF(sset)`.
-
-`SigSet`/`SigDF` can be converted back and forth from Minfi `RGChannelSet` in
-multiple ways. One can sesamize a minfi `RGChannelSet` which returns a
-`GenomicRatioSet`.  See [sesamize](https://github.com/zwdzwd/sesamize) for more
-detail.
-
 # Quality Control {#qc}
 
 ## QC Stats Bar plot
@@ -524,28 +510,45 @@ To visualize genome neighborhood using probe names, we will call
 visualizeProbes(c("cg02382400", "cg03738669"), betas, platform='HM450')
 ```
 
-# Tissue Methylation Signature
+# Inferences
+
+## Copy Number {#cnv}
+
+SeSAMe performs copy number variation in three steps: 1) normalizes the signal
+intensity using a copy-number-normal data set; 2) groups adjacent probes into
+bins; 3) runs DNAcopy internally to group bins into segments.
+```{r inf5, message=FALSE, fig.width=6}
+sdf = sesameDataGet('EPIC.1.SigDF')
+segs <- cnSegmentation(sdf)
+```
+
+To visualize segmentation in SeSAMe,
+```{r inf6, message=FALSE, fig.width=6}
+visualizeSegments(segs)
+```
+
+## Tissue Signature
 
 Let's load beta values from SeSAMeData
 
-```{r nh14, message=FALSE}
+```{r nh14, message=FALSE, fig.width=6, fig.height=8}
 library(SummarizedExperiment)
 betas = assay(sesameDataGet("MMB.10.SE.tissue"))[,1:2]
 ```
 
 Compare mouse array data with mouse tissue references. This will return a grid
 object that contrasts the traget sample with pre-built mouse tissue reference.
-```{r nh15, eval=FALSE}
+```{r nh15}
 compareMouseTissueReference(betas)
 ```
 
-# Strain Inference
+## Strain Inference
 
 One can also visualize the actual SNP data for strain inference by the
 following. The target sample is plotted as a vertical bar on the right of the
 signature heatmap.
 
-```{r nh11, fig.width=6, fig.height=8, eval=TRUE}
+```{r nh11, fig.width=6, fig.height=8}
 sdf = sesameDataGet("MMB.1.SigDF") # an example dataset
 inferStrain(sdf, return.strain = TRUE) # return strain as a string
 compareMouseStrainReference(getBetas(sdf))
@@ -553,12 +556,14 @@ compareMouseStrainReference(getBetas(sdf))
 
 As expected, the variant configuration is consistent with the NOD strain.
 
-# KnowYourCG Visualization {#kycg_vis}
+# KnowYourCG
+
+## Visualization {#kycg_vis}
 
 There are many creative ways one can visualize enrichment results. Here we
 demonstrate a few popular ones supported in sesame. Dot plot:
 
-```{r ky10, echo=TRUE, eval=TRUE, message=FALSE}
+```{r ky10, echo=TRUE, message=FALSE}
 library(SummarizedExperiment)
 df <- rowData(sesameDataGet('MM285.tissueSignature'))
 query <- df$Probe_ID[df$branch == "fetal_liver" & df$type == "Hypo"]
@@ -609,7 +614,7 @@ plot enrichment over metagene:
 KnowYourCG builds in several metagene/meta-feature coordinates. One can test
 enrichment over meta genes or simply plot the mean over metagenes:
 
-```{r ky20, plot-meta1, fig.width=5, fig.height=4, eval=TRUE}
+```{r ky20, plot-meta1, fig.width=5, fig.height=4}
 sdf <- sesameDataGet("EPIC.1.SigDF")
 KYCG_plotMeta(getBetas(sdf))
 ```
@@ -618,7 +623,7 @@ Here we picked some transcription factor binding sites-overlapping CpGs and
 tested against chromHMM states. As expected, most of these CGs are enriched at
 promoters and enhancers but depleted at heterchromatic regions.
 
-# KYCG Feature Aggregation
+## Feature Aggregation
 
 In addition to hypothesis testing, knowYourCG also uses the curated database
 sets for feature engineering. We have a pre-curated summarized experiment
@@ -627,7 +632,7 @@ samples with 20k probes. The samplesheet includes UIDs pertaining to the sample
 and several categorical/numerical features. To use this data for a linear
 model, we will extract the most relevant prevalent features.
 
-``` {r ky24, echo=TRUE, eval=TRUE, message=FALSE}
+``` {r ky24, echo=TRUE, message=FALSE}
 library(SummarizedExperiment)
 betas = assay(sesameDataGet('MM285.467.SE.tissue20Kprobes'))
 ```
@@ -654,7 +659,7 @@ WHeatmap(both.cluster(stats)$mat, xticklabels=TRUE,
     cmp=CMPar(stop.points=c("blue","yellow")))
 ```
 
-# KYCG Annotation
+## Feature Annotation
 
 We can also use KYCG database to annotate an arbitrary probe set. This can be
 done using the `KYCG_annoProbes` function:
@@ -663,6 +668,18 @@ done using the `KYCG_annoProbes` function:
 query <- names(sesameData_getManifestGRanges("MM285"))
 anno <- KYCG_annoProbes(query, "designGroup", silent = TRUE)
 ```
+
+# Interaction with Other Tools
+
+Previously, the signal was implemented an S4 implementation in `SigSet`
+complies with Bioconductor guidelines, and for backwards compatibility,
+`SigSet` can be transformed to a `SigDF` using the `SigSetToSigDF` function
+`sesame:::SigSetToSigDF(sset)`.
+
+`SigSet`/`SigDF` can be converted back and forth from `minfi::RGChannelSet` in
+multiple ways. One can sesamize a minfi `RGChannelSet` which returns a
+`GenomicRatioSet`.  See [sesamize](https://github.com/zwdzwd/sesamize) for more
+detail.
 
 # Session Info
 
