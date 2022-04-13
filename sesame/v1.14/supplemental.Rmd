@@ -594,6 +594,37 @@ Here we picked some transcription factor binding sites-overlapping CpGs and
 tested against chromHMM states. As expected, most of these CGs are enriched at
 promoters and enhancers but depleted at heterchromatic regions.
 
+## Manhattan plot
+
+Manhattan plots are an intuitive way to visualize the results from large scale
+"omics" studies that investigate genetic or epigenetic features on genome wide
+scales across large groups of samples. Here we demonstrate how the
+`KYCG_plotManhattan()` function can be used to visualize the chromosomal
+distribution and significance level of CpG probes from an EWAS
+study. `KYCG_plotManhattan()` takes a named numeric vector with CpG probeIDs as
+names and numeric values (P,Q,logFC,etc) obtained from analysis as values. To
+plot EWAS results, simply load the necessary libraries and pass the named
+numeric vector to `KYCG_plotManhattan()`
+
+```{r ky27, fig.width=6, fig.height=4, message=FALSE}
+library(ggrepel)
+smry_pvals  = sesameAnno_get("Test/20220413_testManhattan.rds")
+KYCG_plotManhattan(-log10(smry_pvals))
+```
+
+By default, `KYCG_plotManhattan()` will infer the array platform from the
+probeIDs and retrieve the corresponding GRanges object to obtain probe
+coordinates. However, the platform and GRanges objects can be pre - specified
+if offline. Color, title, and the threshold to label significant probes on the
+plot can also be specified:
+
+```{r ky28, fig.width=6, fig.height=4}
+KYCG_plotManhattan(-log10(smry_pvals), platform="HM450",
+    title="Differentially Methylated CpGs - EWAS Aging",
+    col=c("navy","skyblue"), ylabel = "-log10(P)") +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
 ## Feature Aggregation
 
 In addition to hypothesis testing, knowYourCG also uses the curated database
