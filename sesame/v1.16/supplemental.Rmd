@@ -498,6 +498,12 @@ To visualize segmentation in SeSAMe,
 visualizeSegments(segs)
 ```
 
+The sesame copy number inference was inspired by the excellent 
+[conumee](https://bioconductor.org/packages/release/bioc/html/conumee.html)
+package and wraps around the
+[DNAcopy](https://bioconductor.org/packages/release/bioc/html/DNAcopy.html)
+package that implements circular binary segmentation algorithm.
+
 ## Tissue Signature
 
 Let's load beta values from SeSAMeData
