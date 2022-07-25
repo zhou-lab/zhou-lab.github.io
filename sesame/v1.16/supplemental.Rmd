@@ -516,7 +516,7 @@ betas = assay(sesameDataGet("MMB.10.SE.tissue"))[,1:2]
 Compare mouse array data with mouse tissue references. This will return a grid
 object that contrasts the traget sample with pre-built mouse tissue reference.
 ```{r nh15, fig.width=6, fig.height=8}
-compareMouseTissueReference(betas)
+compareReference(sesameDataGet("MM285.tissueSignature"), betas)
 ```
 
 ## Strain Inference
