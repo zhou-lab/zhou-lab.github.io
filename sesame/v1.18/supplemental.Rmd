@@ -548,13 +548,18 @@ results <- testEnrichment(query, "TFBS")
 ```
 
 ```{r ky11, fig.width=5, fig.height=3.5}
-KYCG_plotDot(results, n_max=20)
+KYCG_plotDot(results)
 ```
 
 or a bar plot:
 
 ```{r ky12, fig.width=6.5, fig.height=4, message=FALSE}
-KYCG_plotBar(results, n_max=15)
+library(ggplot2)
+library(wheatmap)
+p1 <- KYCG_plotBar(results, label=TRUE)
+p2 <- KYCG_plotBar(results, y="estimate") + ylab("log2(Odds Ratio)") +
+    xlab("") + theme(axis.text.y = element_blank())
+WGG(p1) + WGG(p2, RightOf(width=0.5, pad=0))
 ```
  
 or a volcano plot. Here we need a two-tailed test to show both enrichment and
@@ -591,7 +596,7 @@ plot enrichment over metagene:
 KnowYourCG builds in several metagene/meta-feature coordinates. One can test
 enrichment over meta genes or simply plot the mean over metagenes:
 
-```{r ky20, plot-meta1, fig.width=5, fig.height=4}
+```{r ky20, plot-meta1, fig.width=5, fig.height=4, message=FALSE}
 sdf <- sesameDataGet("EPIC.1.SigDF")
 KYCG_plotMeta(getBetas(sdf))
 ```
