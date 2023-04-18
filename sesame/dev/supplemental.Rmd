@@ -33,7 +33,7 @@ sesame_checkVersion()
 ```
 
 See the following for documentations of the previous versions (partial list):
-```{r}
+```{r previousversion, echo=FALSE, result="asis"}
 library(knitr)
 df <- rbind(
     c("1.18", "https://zhou-lab.github.io/sesame/v1.18/sesame.html"),
