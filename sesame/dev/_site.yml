@@ -1,0 +1,25 @@
+name: "SeSAMe"
+navbar:
+  title: '<a href="http://bioconductor.org/packages/release/bioc/html/sesame.html" class="navbar-left"><img src="./include/logo.png" height="30" width="80" vspace=15 hspace=5></a>'
+  left:
+    - text: "Basics"
+      icon: fa-home
+      href: sesame.html
+    - text: "QC"
+      icon: fa-check-circle
+      href: QC.html
+    - text: "Non-human Array"
+      icon: fa-paw
+      href: nonhuman.html
+    - text: "Modeling"
+      icon: fa-cogs
+      href: modeling.html
+    - text: "Inference"
+      icon: fa-database
+      href: inferences.html
+    - text: "KnowYourCG"
+      icon: fa-binoculars
+      href: KYCG.html
+    - text: "Supplemental"
+      icon: fa-book
+      href: supplemental.html
