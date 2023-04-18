@@ -242,7 +242,7 @@ For a list of options of such pre-defined sets one can use the
 `listAvailableMasks()` function.
 
 ```{r, message=FALSE}
-listAvailableMasks("EPIC")[,c("mask_name","mask_recommended","mask_group")]
+listAvailableMasks("EPIC")
 sdf_masked = qualityMask(sdf)          # using the recommended mask
 ```
 
