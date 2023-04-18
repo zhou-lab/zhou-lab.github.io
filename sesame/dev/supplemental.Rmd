@@ -24,6 +24,24 @@ library(dplyr)
 sesameDataCache()
 ```
 
+# Versions
+
+SeSAMe is being actively developed. Please find the current version by
+
+```{r}
+sesame_checkVersion()
+```
+
+See the following for documentations of the previous versions (partial list):
+```{r}
+library(knitr)
+df <- rbind(
+    c("1.18", "https://zhou-lab.github.io/sesame/v1.18/sesame.html"),
+    c("1.16", "https://zhou-lab.github.io/sesame/v1.16/sesame.html"),
+    c("1.14", "https://zhou-lab.github.io/sesame/v1.14/sesame.html"))
+kable(df, caption="Previous version vignettes")
+```
+
 # The SigDF Class
 
 SeSAMe design includes a light-weight fullly-exposed infrastructure of the
