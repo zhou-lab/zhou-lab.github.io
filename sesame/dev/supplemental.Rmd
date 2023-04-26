@@ -457,11 +457,15 @@ genotypes. This requires additional SNP information (ref and alt alleles),
 which can be downloaded using the following code:
 
 ```{r}
-head(formatVCF(sdf))
+annoS <- readRDS(url("https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/EPIC/EPIC.hg19.snp_overlap_b151.rds"))
+annoI <- readRDS(url("https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/EPIC/EPIC.hg19.typeI_overlap_b151.rds"))
+head(formatVCF(sdf, annoS, annoI))
 ```
 
 One can output to actual VCF file with a header by `formatVCF(sdf,
-vcf=path_to_vcf)`.
+vcf=path_to_vcf)`. See
+https://github.com/zhou-lab/InfiniumAnnotationV1/tree/main/Anno/EPIC for more
+annotation files.
 
 ## Bisulfite conversion
 
@@ -664,7 +668,7 @@ plot can also be specified:
 
 ```{r ky27, fig.width=6, fig.height=4, message=FALSE}
 library(ggrepel)
-smry_pvals  = sesameAnno_get("Test/20220413_testManhattan.rds")
+smry_pvals = readRDS(url("https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Test/20220413_testManhattan.rds"))
 KYCG_plotManhattan(-log10(smry_pvals), platform="HM450",
     title="Differentially Methylated CpGs - EWAS Aging",
     col=c("navy","skyblue"), ylabel = bquote(-log[10](P~value)), label_min=30) +
