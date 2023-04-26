@@ -92,6 +92,64 @@ sdf_write_table(sdf, file=csv_file_path, sep=",") # save as csv
 sdf2 = sdf_read_table(csv_file_path, sep=",")     # read back
 ```
 
+# Address and Manifest Files
+
+Manifest files describe the probe mapping and chip address. The address files
+are subset of manifest files that only contains the chip addresses. The
+manifest files can be downloaded from
+http://zwdzwd.github.io/InfiniumAnnotation.
+
+After downloading, one can build the address file or GRanges object, both from
+the downloaded manifest files. The following shows an example,
+
+```{r eval=FALSE}
+tsv_path <- "~/Downloads/MM285.mm10.manifest.tsv.gz"
+## read manifest to GRanges
+manifest <- sesameAnno_buildManifestGRanges(tsv_path)
+## read manifest to tibble
+manifest <- sesameAnno_readManifestTSV(tsv_path)
+## read manifest to address file (for openSesame or readIDATpair)
+addr <- sesameAnno_buildAddressFile(tsv_path)
+```
+
+## Custom Arrays
+
+If you are dealing with a custom-made array instead of the standard array
+(MM285, EPIC, HM450 etc) supported natively by SeSAMe, you would need to
+provide a address file that describes the probe information. You should be able
+to obtain the probe information manifest from the Illumina support website.
+The address file should be formated as a data frame with four columns
+minimally: `Probe_ID`, `M`, `U` and `col`. A optional `mask` column may also be
+included as a default mask for the platform. The easiest way to format a
+SeSAMe-compatible address file is by following internal address table for a
+SeSAMe-supported platform or using the `sesameAnno_buildAddressFile` from a
+manifest file. The internal address table can be retrieved with the
+`sesameDataGet` function:
+
+```{r}
+addr = sesameDataGet("MM285.address")$ordering
+```
+
+The `col` is either `G` (which stands for Green) or `R` (which stands for Red)
+or `2` (which stands for Infinium II designs).  For Infinium-II probes, the `M`
+column and `col` column is left as `NA`.  For example, one can check that both
+`M` and `col` columns are filled with the Infinium-I probes (in mouse array
+this can be indicated by a `_[TBN][CON]1` suffix):
+
+```{r}
+head(addr[!is.na(addr$col),])
+```
+
+The last column `mask` is a logical vector that defines the default masking
+behavior of SeSAMe for the platform (see below for discussion of
+NA-masking). With the manifest, your data can be processed using the
+`manifest=` option in `openSesame` or `readIDATpair` (one sample).
+
+```{r eval = FALSE}
+betas = openSesame("IDAT_dir", manifest = addr)
+sdf = readIDATpair("your_sample_prefix", manifest = addr) # or one sample
+```
+
 # openSesame Components {#openSesame}
 
 ## Read IDATs
@@ -124,43 +182,6 @@ sdf = readIDAT("idat_folder/GSM2178224")           # Example 2
 
 Note that SeSAMe automatically detects and matches up the green and red signal
 files for the same sample.
-
-## Custom Arrays
-
-If you are dealing with a custom-made array instead of the standard array
-(MM285, EPIC, HM450 etc) supported natively by SeSAMe, you would need to
-provide a manifest that describes the probe information. You should be able to
-obtain the probe information manifest from the Illumina support website.  The
-manifest should be formated as a data frame with four columns minimally:
-`Probe_ID`, `M`, `U` and `col`. A optional `mask` column may also be included
-as a default mask for the platform. The easiest way to format a
-SeSAMe-compatible manifest is by following internal manifests for a
-SeSAMe-supported platform. They can be retrieved with the `sesameDataGet`
-function:
-
-```{r}
-mft = sesameDataGet("MM285.address")$ordering
-```
-
-The `col` is either `G` (which stands for Green) or `R` (which stands for Red)
-or `2` (which stands for Infinium II designs).  For Infinium-II probes, the `M`
-column and `col` column is left as `NA`.  For example, one can check that both
-`M` and `col` columns are filled with the Infinium-I probes (in mouse array
-this can be indicated by a `_[TBN][CON]1` suffix):
-
-```{r}
-head(mft[!is.na(mft$col),])
-```
-
-The last column `mask` is a logical vector that defines the default masking
-behavior of SeSAMe for the platform (see below for discussion of
-NA-masking). With the manifest, your data can be processed using the
-`manifest=` option in `openSesame` or `readIDATpair` (one sample).
-
-```{r eval = FALSE}
-betas = openSesame("IDAT_dir", manifest = mft)
-sdf = readIDATpair("your_sample_prefix", manifest = mft) # or one sample
-```
 
 ## Search IDAT Prefixes
 
