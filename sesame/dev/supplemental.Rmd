@@ -18,7 +18,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 This vignette book documents the SeSAMe package in full to supplement the
 vignettes hosted on the Bioconductor.
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(sesame)
 library(dplyr)
 sesameDataCache()
