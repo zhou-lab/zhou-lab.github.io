@@ -29,7 +29,10 @@ betas <- openSesame(pfxes, mask=FALSE)
 apply(betas, 2, function(x) askme_cancertype(x, model=m_cancertype_CNS65))
 ```
 
-
+```{r}
+betas = openSesame("~/zhou_lab/projects/20230125_nonGEO_IDATs/EPICv2/207107850105_R01C01", collapseToPfx=TRUE, mask=FALSE)
+askme_cancertype(betas, model=m_cancertype_CNS65)
+```
 
 
 ```{r}
