@@ -34,7 +34,6 @@ betas = openSesame("~/zhou_lab/projects/20230125_nonGEO_IDATs/EPICv2/20710785010
 askme_cancertype(betas, model=m_cancertype_CNS65)
 ```
 
-
 ```{r}
 sessionInfo()
 ```
