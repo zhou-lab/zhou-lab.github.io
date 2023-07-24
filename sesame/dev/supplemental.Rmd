@@ -48,7 +48,17 @@ SeSAMe design includes a light-weight fullly-exposed infrastructure of the
 internal signal intensities. Central to this infrastructure is the `SigDF` data
 structure, which is a `data.frame` subclass. One can treat it like a regulator
 `data.frame` with 7 specific columns, i.e., Probe_ID, MG, MR, UG, UR, col and
-mask. The `col` column specifies the color channel and takes `G`, `R` and `2`.
+mask. 
+
+ - Probe_ID: Illumina probe ID
+ - UG: Inf-I unmethylated allele / Inf-II (allele A) green channel measurement
+ - UR: Inf-I unmethylated allele / Inf-II (allele A) red channel measurement
+ - MG: Inf-I methylated allele (allele B) green channel measurement
+ - MR: Inf-I methylated allele (allele B) red channel measurement
+ - col: color channel
+ - mask: whether the probe should be masked for reporting beta values
+
+The `col` column specifies the color channel and takes `G`, `R` and `2`.
 The Infinium-I probes carry `G` and `R` in col to indicate the designed
 color. This infrastructure is nimble to allow change of color channel, and mask
 (the scope of usable probes) depending on the use of the array on different
