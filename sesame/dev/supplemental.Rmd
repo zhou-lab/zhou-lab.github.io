@@ -443,13 +443,13 @@ with low signal intensity.
 sesameQC_plotIntensVsBetas(sdf)
 ```
 
-## Genotype validation {#SNP}
+## Genotyping in VCF format {#SNP}
 
 Extra SNP allele frequencies can be obtained by summing up methylated and
 umethylated alleles of color-channel-switching probes. These allele frequencies
 can be combined with explicit SNP probes:
 
-```{r}
+```{r vcf1}
 head(getAFs(sdf)) # combined
 head(getAFTypeIbySumAlleles(sdf)) # AFs from only color-channel-switching
 ```
@@ -457,7 +457,7 @@ head(getAFTypeIbySumAlleles(sdf)) # AFs from only color-channel-switching
 SeSAMe can extract explicit and Infinium-I-derived SNPs to identify potential
 sample swaps.
 
-```{r fig.height=5, fig.width=5, message=FALSE}
+```{r vcf2, fig.height=5, fig.width=5, message=FALSE}
 sdfs <- sesameDataGet("EPIC.5.SigDF.normal")
 sesameQC_plotHeatSNPs(sdfs)
 ```
@@ -466,16 +466,25 @@ One can also output the allele frequencies and output a VCF file with
 genotypes. This requires additional SNP information (ref and alt alleles),
 which can be downloaded using the following code:
 
-```{r}
-annoS <- readRDS(url("https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/EPIC/EPIC.hg19.snp_overlap_b151.rds"))
-annoI <- readRDS(url("https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/EPIC/EPIC.hg19.typeI_overlap_b151.rds"))
-head(formatVCF(sdf, annoS, annoI))
+```{r vcf3}
+library(tidyverse)
+anno = read_tsv(gzcon(url(sprintf(
+    "%s/EPIC/EPIC.hg38.snp.tsv.gz",
+    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno"))))
+head(formatVCF(sdf, anno))
 ```
 
 One can output to actual VCF file with a header by `formatVCF(sdf,
 vcf=path_to_vcf)`. See
 https://github.com/zhou-lab/InfiniumAnnotationV1/tree/main/Anno/EPIC for more
-annotation files.
+annotation files, including EPICv2.
+
+```{r vcf4, eval=FALSE}
+anno = read_tsv(gzcon(url(sprintf(
+    "%s/EPICv2/EPICv2.hg38.snp.tsv.gz",
+    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno"))))
+head(formatVCF(sdf, anno, vcf="~/Downloads/test_output.vcf"))
+```
 
 ## Bisulfite conversion
 
@@ -486,9 +495,22 @@ C/T-extension probes. Details of this method can be found in
 [Zhou et al. 2017](https://academic.oup.com/nar/article/45/4/e22/2290930).
 The closer the score to 1.0, the more complete the bisulfite conversion.
 
-```{r}
+```{r bsconv1}
 sdf <- sesameDataGet('EPIC.1.SigDF')
 bisConversionControl(sdf)
+```
+
+For newer arrays, one need to extract extR and extA from the manifest.
+For example,
+
+```{r bsconv2, eval=FALSE}
+mft = sesameAnno_buildManifestGRanges(sprintf(
+    "%s/EPICv2/EPICv2.hg38.manifest.tsv.gz",
+    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/"),
+    columns = "nextBase")
+extR = names(mft)[!is.na(mft$nextBase) & mft$nextBase=="R"]
+extA = names(mft)[!is.na(mft$nextBase) & mft$nextBase=="A"]
+bisConversionControl(sdf, extR, extA)
 ```
 
 # Visualization

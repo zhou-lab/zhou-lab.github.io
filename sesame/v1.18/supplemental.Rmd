@@ -394,7 +394,7 @@ with low signal intensity.
 sesameQC_plotIntensVsBetas(sdf)
 ```
 
-## Genotype validation {#SNP}
+## Genotyping in VCF format {#SNP}
 
 Extra SNP allele frequencies can be obtained by summing up methylated and
 umethylated alleles of color-channel-switching probes. These allele frequencies
@@ -423,6 +423,17 @@ head(formatVCF(sdf))
 
 One can output to actual VCF file with a header by `formatVCF(sdf,
 vcf=path_to_vcf)`.
+
+For EPICv2 arrays, the SNP anotation is available through the 
+annotation website:
+
+```{r eval=FALSE}
+anno = read_tsv(gzcon(url(sprintf(
+    "%s/EPICv2/EPICv2.hg38.snp.tsv.gz",
+    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno"))))
+
+head(formatVCF(sdf, anno, vcf="~/Downloads/test_output.vcf"))
+```
 
 ## Bisulfite conversion
 
