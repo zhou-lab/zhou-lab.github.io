@@ -510,9 +510,8 @@ For newer arrays, one need to extract extR and extA from the manifest.
 For example,
 
 ```{r bsconv2, eval=FALSE}
-mft = sesameAnno_buildManifestGRanges(sprintf(
-    "%s/EPICv2/EPICv2.hg38.manifest.tsv.gz",
-    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno/"),
+mft = sesameAnno_buildManifestGRanges(
+    sesameAnno_download("EPICv2.hg38.manifest.tsv.gz"),
     columns = "nextBase")
 extR = names(mft)[!is.na(mft$nextBase) & mft$nextBase=="R"]
 extA = names(mft)[!is.na(mft$nextBase) & mft$nextBase=="A"]
