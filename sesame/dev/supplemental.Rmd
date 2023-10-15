@@ -107,19 +107,19 @@ sdf2 = sdf_read_table(csv_file_path, sep=",")     # read back
 Manifest files describe the probe mapping and chip address. The address files
 are subset of manifest files that only contains the chip addresses. The
 manifest files can be downloaded from
-http://zwdzwd.github.io/InfiniumAnnotation.
+http://zwdzwd.github.io/InfiniumAnnotation
 
 After downloading, one can build the address file or GRanges object, both from
 the downloaded manifest files. The following shows an example,
 
 ```{r eval=FALSE}
-tsv_path <- "~/Downloads/MM285.mm10.manifest.tsv.gz"
+tsv_path = sesameAnno_download("MM285.mm10.manifest.tsv.gz")
 ## read manifest to GRanges
-manifest <- sesameAnno_buildManifestGRanges(tsv_path)
+manifest = sesameAnno_buildManifestGRanges(tsv_path)
 ## read manifest to tibble
-manifest <- sesameAnno_readManifestTSV(tsv_path)
+manifest = sesameAnno_readManifestTSV(tsv_path)
 ## read manifest to address file (for openSesame or readIDATpair)
-addr <- sesameAnno_buildAddressFile(tsv_path)
+addr = sesameAnno_buildAddressFile(tsv_path)
 ```
 
 ## Custom Arrays
@@ -445,6 +445,36 @@ sesameQC_plotIntensVsBetas(sdf)
 
 ## Genotyping in VCF format {#SNP}
 
+One can output the allele frequencies and output a VCF file with
+genotypes. This requires additional SNP information (ref and alt alleles),
+which can be downloaded using the following code:
+
+```{r vcf3, warning=FALSE, message=FALSE}
+library(tidyverse)
+anno = read_tsv(sesameAnno_download("EPIC.hg38.snp.tsv.gz"))
+vcf = formatVCF(sdf, anno)
+head(vcf)
+```
+
+Note that the VCF combines explicity SNPs and implicit SNPs that alters color
+channels of Infinium-I probes. For the REF and ALT slots, we used H and D to
+denote `A/C/T` and `A/G/T` respectively.
+
+Some records match common mutations with rs IDs:
+```{r vcf5}
+head(vcf[grepl("rs",vcf$INFO),"INFO",drop=FALSE])
+```
+
+One can output to actual VCF file with a header by `formatVCF(sdf,
+vcf=path_to_vcf)`. See
+https://github.com/zhou-lab/InfiniumAnnotationV1/tree/main/Anno/EPIC for more
+annotation files, including EPICv2.
+
+```{r vcf4, eval=FALSE}
+anno = read_tsv(sesameAnno_download("EPICv2.hg38.snp.tsv.gz"))
+head(formatVCF(sdf, anno, vcf="~/Downloads/test_output.vcf"))
+```
+
 Extra SNP allele frequencies can be obtained by summing up methylated and
 umethylated alleles of color-channel-switching probes. These allele frequencies
 can be combined with explicit SNP probes:
@@ -454,36 +484,12 @@ head(getAFs(sdf)) # combined
 head(getAFTypeIbySumAlleles(sdf)) # AFs from only color-channel-switching
 ```
 
-SeSAMe can extract explicit and Infinium-I-derived SNPs to identify potential
+One can plot explicit and Infinium-I-derived SNPs to identify potential
 sample swaps.
 
 ```{r vcf2, fig.height=5, fig.width=5, message=FALSE}
 sdfs <- sesameDataGet("EPIC.5.SigDF.normal")
 sesameQC_plotHeatSNPs(sdfs)
-```
-
-One can also output the allele frequencies and output a VCF file with
-genotypes. This requires additional SNP information (ref and alt alleles),
-which can be downloaded using the following code:
-
-```{r vcf3}
-library(tidyverse)
-anno = read_tsv(gzcon(url(sprintf(
-    "%s/EPIC/EPIC.hg38.snp.tsv.gz",
-    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno"))))
-head(formatVCF(sdf, anno))
-```
-
-One can output to actual VCF file with a header by `formatVCF(sdf,
-vcf=path_to_vcf)`. See
-https://github.com/zhou-lab/InfiniumAnnotationV1/tree/main/Anno/EPIC for more
-annotation files, including EPICv2.
-
-```{r vcf4, eval=FALSE}
-anno = read_tsv(gzcon(url(sprintf(
-    "%s/EPICv2/EPICv2.hg38.snp.tsv.gz",
-    "https://github.com/zhou-lab/InfiniumAnnotationV1/raw/main/Anno"))))
-head(formatVCF(sdf, anno, vcf="~/Downloads/test_output.vcf"))
 ```
 
 ## Bisulfite conversion
