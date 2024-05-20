@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-03-19" />
+<meta name="date" content="2024-03-20" />
 
 <title>CytoMethIC models</title>
 
@@ -3041,16 +3041,24 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">CytoMethIC models</h1>
-<h4 class="date">19 March 2024</h4>
+<h4 class="date">20 March 2024</h4>
 
 </div>
 
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sesame)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CytoMethIC)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_checkVersion</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_home <span class="ot">=</span> <span class="st">&quot;https://github.com/zhou-lab/CytoMethIC_models/raw/main/models&quot;</span></span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_home <span class="ot">=</span> <span class="st">&quot;https://github.com/zhou-lab/CytoMethIC_models/raw/main/models&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_checkVersion</span>()</span></code></pre></div>
+<pre><code>## CytoMethIC requires matched versions of R, sesame, sesameData and ExperimentHub.
+## Here is the current versions installed:
+## R: 4.4.0
+## Bioconductor: 3.19
+## CytoMethIC: 0.99.21
+## sesame: 1.21.14
+## sesameData: 1.21.10
+## ExperimentHub: 2.11.1</code></pre>
 <p>The mature CytoMethIC models are hosted in ExperimentHub. This
 package also supports using models from <a href="https://github.com/zhou-lab/CytoMethIC_models" class="uri">https://github.com/zhou-lab/CytoMethIC_models</a>, which
 will host the most frequently updated public repository of our lab’s
@@ -3137,15 +3145,15 @@ Prediction</td>
 <h1>Gender</h1>
 <p>The gender/sex model is based on X chromosome inactivation sites,
 including both hyper and hypomethylation on inactive X.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="fu">paste0</span>(model_home, <span class="st">&quot;/Sex2_HM450.rds&quot;</span>)))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="fu">paste0</span>(model_home, <span class="st">&quot;/Sex2_HM450.rds&quot;</span>)))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["response"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["prob"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["additional_info"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"0.8132805","2":"NA","3":"MALE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">table</span>(cmi_model<span class="sc">$</span>stats<span class="sc">$</span>additional_info, cmi_model<span class="sc">$</span>stats<span class="sc">$</span>truth))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">table</span>(cmi_model<span class="sc">$</span>stats<span class="sc">$</span>additional_info, cmi_model<span class="sc">$</span>stats<span class="sc">$</span>truth))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -3172,17 +3180,17 @@ including both hyper and hypomethylation on inactive X.</p>
 <h1>Ethnicity</h1>
 <p>The below snippet shows a demonstration of the cmi_classify function
 working to predict the ethnicity of the patient.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8421&quot;</span>]]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8421&quot;</span>]]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["response"],"name":[1],"type":["chr"],"align":["left"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"WHITE","2":"0.886"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>betas_epicv2 <span class="ot">=</span> <span class="fu">openSesame</span>(<span class="fu">sesameDataGet</span>(<span class="st">&quot;EPICv2.8.SigDF&quot;</span>)[[<span class="dv">1</span>]])</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="fu">paste0</span>(model_home, <span class="st">&quot;/Race3_rfcTCGA_InfHum3.rds&quot;</span>)))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_epicv2, cmi_model, <span class="at">lift_over=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas_epicv2 <span class="ot">=</span> <span class="fu">openSesame</span>(<span class="fu">sesameDataGet</span>(<span class="st">&quot;EPICv2.8.SigDF&quot;</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="fu">paste0</span>(model_home, <span class="st">&quot;/Race3_rfcTCGA_InfHum3.rds&quot;</span>)))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_epicv2, cmi_model, <span class="at">lift_over=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["response"],"name":[1],"type":["chr"],"align":["left"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"WHITE","2":"0.69"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -3193,9 +3201,10 @@ working to predict the ethnicity of the patient.</p>
 <h1>Cancer Classification Models</h1>
 <div id="cns-cancer" class="section level2">
 <h2>CNS Cancer</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8396&quot;</span>]]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model, <span class="at">lift_over=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8396&quot;</span>]]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## cmi_model = readRDS(url(paste0(model_home, &quot;/CancerType33_rfcTCGA_InfHum3.rds&quot;)))</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model, <span class="at">lift_over=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["response"],"name":[1],"type":["chr"],"align":["left"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"PAAD","2":"0.9864795"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -3209,15 +3218,15 @@ working to predict the ethnicity of the patient.</p>
 <h2>Cancer Cell of origin</h2>
 <p>The below snippet shows a demonstration of the cmi_classify function
 working to predict the cell of origin of the cancer.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8423&quot;</span>]]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>betas_hm450 <span class="ot">=</span> <span class="fu">sesameDataGet</span>(<span class="st">&quot;HM450.1.TCGA.PAAD&quot;</span>)<span class="sc">$</span>betas</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cmi_model <span class="ot">=</span> <span class="fu">ExperimentHub</span>()[[<span class="st">&quot;EH8423&quot;</span>]]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmi_predict</span>(betas_hm450, cmi_model)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["response"],"name":[1],"type":["chr"],"align":["left"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"C20:Mixed (Stromal/Immune)","2":"0.768"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R Under development (unstable) (2023-12-15 r85690)
 ## Platform: aarch64-apple-darwin22.6.0
 ## Running under: macOS Ventura 13.6.4
@@ -3238,7 +3247,7 @@ working to predict the cell of origin of the cancer.</p>
 ## other attached packages:
 ##  [1] knitr_1.45           dplyr_1.1.4          CytoMethIC_0.99.21  
 ##  [4] sesame_1.21.14       sesameData_1.21.10   ExperimentHub_2.11.1
-##  [7] AnnotationHub_3.11.1 BiocFileCache_2.11.1 dbplyr_2.4.0        
+##  [7] AnnotationHub_3.11.2 BiocFileCache_2.11.1 dbplyr_2.5.0        
 ## [10] BiocGenerics_0.49.1  rmarkdown_2.25       R6_2.5.1            
 ## 
 ## loaded via a namespace (and not attached):
@@ -3259,7 +3268,7 @@ working to predict the cell of origin of the cancer.</p>
 ## [29] DelayedArray_0.29.9         BiocParallel_1.37.1        
 ## [31] parallel_4.4.0              bslib_0.6.1                
 ## [33] stringi_1.8.3               RColorBrewer_1.1-3         
-## [35] GenomicRanges_1.55.3        jquerylib_0.1.4            
+## [35] GenomicRanges_1.55.4        jquerylib_0.1.4            
 ## [37] Rcpp_1.0.12                 SummarizedExperiment_1.33.3
 ## [39] wheatmap_0.2.0              readr_2.1.5                
 ## [41] IRanges_2.37.1              Matrix_1.6-4               

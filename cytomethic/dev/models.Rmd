@@ -15,11 +15,11 @@ vignette: >
 library(sesame)
 library(CytoMethIC)
 library(dplyr)
-cmi_checkVersion()
 ```
 
-```{r message=FALSE}
+```{r}
 model_home = "https://github.com/zhou-lab/CytoMethIC_models/raw/main/models"
+cmi_checkVersion()
 ```
 
 The mature CytoMethIC models are hosted in ExperimentHub. This package also
@@ -62,6 +62,21 @@ cmi_model = readRDS(url(paste0(model_home, "/Race3_rfcTCGA_InfHum3.rds")))
 cmi_predict(betas_epicv2, cmi_model, lift_over=TRUE)
 ```
 
+# Mitotic Index
+
+```{r replitali}
+cmi_model = readRDS(url(paste0(model_home, "/RepliTali_EPIC.rds")))
+betas_hm450 = sesameDataGet("HM450.1.TCGA.PAAD")$betas
+cmi_predict(betas_hm450, cmi_model)
+
+
+cmi_model = readRDS(url(paste0(model_home, "/TumorPurity_HM450.rds")))
+betas_hm450 = sesameDataGet("HM450.1.TCGA.PAAD")$betas
+cmi_predict(betas_hm450, cmi_model)
+
+
+```
+
 # Cancer Classification Models
 
 ## CNS Cancer
@@ -69,6 +84,7 @@ cmi_predict(betas_epicv2, cmi_model, lift_over=TRUE)
 ```{r message=FALSE}
 betas_hm450 = sesameDataGet("HM450.1.TCGA.PAAD")$betas
 cmi_model = ExperimentHub()[["EH8396"]]
+## cmi_model = readRDS(url(paste0(model_home, "/CancerType33_rfcTCGA_InfHum3.rds")))
 cmi_predict(betas_hm450, cmi_model, lift_over=TRUE)
 ```
 
