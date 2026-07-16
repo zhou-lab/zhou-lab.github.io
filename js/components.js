@@ -125,6 +125,11 @@ function ensureLightbox() {
   img.addEventListener("pointercancel", endDrag);
   return _lb;
 }
+/* Grids and the lightbox strip render 52-150px boxes; only the lightbox itself
+   needs the full-size file. Thumbs are pre-rendered alongside each source. */
+function thumbOf(src) {
+  return src.replace(/^(images\/(?:lab|papers))\//, "$1/thumbs/");
+}
 function lbRender() {
   const g = _lbItems[_lbIndex];
   const img = _lb.querySelector(".lb__img");
@@ -147,7 +152,7 @@ function lbBuildStrip() {
   const strip = _lb.querySelector(".lb__strip");
   strip.style.display = _lbItems.length > 1 ? "" : "none";
   strip.innerHTML = _lbItems.map((g, i) =>
-    `<button class="lb__thumb" data-i="${i}"><img src="${g.src}" alt=""></button>`).join("");
+    `<button class="lb__thumb" data-i="${i}"><img src="${thumbOf(g.src)}" alt="" loading="lazy"></button>`).join("");
   strip.querySelectorAll(".lb__thumb").forEach((t) =>
     t.addEventListener("click", (e) => { e.stopPropagation(); _lbIndex = parseInt(t.dataset.i, 10); lbRender(); }));
 }
@@ -180,7 +185,7 @@ class PhotoGallery extends HTMLElement {
       const y = g.year || "";
       if (y !== lastYear) { html += `<div class="gallery-sep">${y}</div>`; lastYear = y; }
       html += `<button class="shot" data-i="${i}" title="${g.caption || ""}">
-        <img src="${g.src}" alt="${g.caption || "Lab photo"}" loading="lazy"></button>`;
+        <img src="${thumbOf(g.src)}" alt="${g.caption || "Lab photo"}" loading="lazy"></button>`;
     });
     this.innerHTML = `<div class="gallery-row">${html}</div>`;
     this.querySelectorAll(".shot").forEach((btn) =>
@@ -195,7 +200,7 @@ class PaperGallery extends HTMLElement {
     const lbItems = PAPERS.map((p) => ({ src: p.src, caption: `${p.title} · ${p.journal}`, link: p.link }));
     this.innerHTML = `<div class="gallery-row paper-row">${PAPERS.map((p, i) => `
       <button class="pshot" data-i="${i}" title="${p.title}">
-        <img src="${p.src}" alt="${p.journal}" loading="lazy">
+        <img src="${thumbOf(p.src)}" alt="${p.journal}" loading="lazy">
         <span class="pshot__journal">${p.journal}</span>
         <span class="pshot__title">${p.title}</span>
       </button>`).join("")}</div>`;
