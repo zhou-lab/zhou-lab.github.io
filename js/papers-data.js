@@ -33,5 +33,11 @@ const PAPERS = [
     journal: "Genome Biology · 2025",
     title: "A ternary-code DNA methylome atlas of mouse tissues",
     link: "https://doi.org/10.1186/s13059-025-03808-y"
+  },
+  {
+    src: "images/papers/2026NARGAB.jpg",
+    journal: "NAR Genom. Bioinform. · 2026",
+    title: "A theoretical and experimental framework enables low-coverage sequencing for accurate quantification of genome-wide cytosine modification levels",
+    link: "https://doi.org/10.1093/nargab/lqag082"
   }
 ];

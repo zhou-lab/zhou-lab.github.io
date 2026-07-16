@@ -12,6 +12,15 @@ const PUBS = [
   /* ---- 2026 ---- */
   {
     year: 2026,
+    authors: "Loo*, Fowler*, <u>Zhu</u>, Krapp, Zhu, Bartolomei, <u>Zhou</u><sup>†</sup>, Kohli<sup>†</sup>",
+    title: "A theoretical and experimental framework enables low-coverage sequencing for accurate quantification of genome-wide cytosine modification levels",
+    titleLink: "https://doi.org/10.1093/nargab/lqag082",
+    journal: "NAR Genomics and Bioinformatics",
+    pdf: "Loo2026NARGAB.pdf",
+    links: [{ type: "server", href: "https://zhou-lab.github.io/TAE_calculator/" }, { type: "code", href: "https://github.com/zhou-lab/TAE_calculator" }]
+  },
+  {
+    year: 2026,
     authors: "Loo, Parker, Barka, Zhu, Schnell, Cuomo, <u>Zhu</u>, Liu, Chen, Gill, <u>Zhou</u><sup>†</sup>, Kohli<sup>†</sup>",
     title: "Unnatural cytosine analogs potentiate customizable simultaneous epigenetic and four-base genetic sequencing",
     titleLink: "https://pubs.acs.org/doi/10.1021/jacs.5c18450",
