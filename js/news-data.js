@@ -8,6 +8,12 @@
    ============================================================ */
 const NEWS = [
   {
+    date: "2026-06-30",
+    tag: "Paper",
+    title: "Loo, Fowler et al., “A theoretical and experimental framework enables low-coverage sequencing for accurate quantification of genome-wide cytosine modification levels,” accepted at NAR Genomics and Bioinformatics.",
+    link: "https://doi.org/10.1093/nargab/lqag082"
+  },
+  {
     date: "2026-06-01",
     tag: "Lab",
     title: "Welcome to Namju Kim (VMD-PhD rotation student) and Olivia DeShong (undergraduate researcher), who joined the lab.",
