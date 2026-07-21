@@ -27,6 +27,7 @@
         <a href="#papers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5v12a2 2 0 0 0-2 2"/><path d="M7 8h7M7 11h7"/></svg>Featured</a>
         <a href="#publications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5v12a2 2 0 0 0-2 2"/></svg>Publications</a>
         <a href="#members"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-5-5.9"/></svg>Members</a>
+        <a href="#software"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></svg>Software</a>
         <a href="#news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>News</a>
         <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Contact</a>
       </nav>
@@ -35,7 +36,7 @@
         <div class="s-stat"><b>2020</b><span>founded</span></div>
         <div class="s-stat"><b data-count="members">·</b><span>members</span></div>
         <div class="s-stat"><b data-count="alumni">·</b><span>alumni</span></div>
-        <div class="s-stat"><b>4</b><span>OSS tools</span></div>
+        <div class="s-stat"><b data-count="software">·</b><span>OSS tools</span></div>
       </div>
 
       <div class="s-social">
@@ -74,6 +75,16 @@
               <div class="panel__title">Featured Papers</div>
             </div>
             <div class="panel__body"><paper-gallery></paper-gallery></div>
+          </section>
+
+          <section class="panel" id="software" data-section>
+            <div class="panel__head">
+              <div class="panel__title">Software <span class="count" data-count="software">·</span></div>
+              <div class="panel__tools">
+                <a class="panel__link link-arrow" href="https://github.com/zhou-lab" target="_blank" rel="noopener">GitHub &rarr;</a>
+              </div>
+            </div>
+            <div class="panel__body"><software-list></software-list></div>
           </section>
 
           <section class="panel panel--fold" id="publications" data-section style="--h-short:933px; --h-long:none;">
@@ -138,6 +149,7 @@
   <script src="js/news-data.js"></script>
   <script src="js/gallery-data.js"></script>
   <script src="js/papers-data.js"></script>
+  <script src="js/software-data.js"></script>
   <script src="js/components.js"></script>
 </body>
 </html>

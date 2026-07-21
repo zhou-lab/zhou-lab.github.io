@@ -252,6 +252,92 @@ class NewsFeed extends HTMLElement {
 }
 customElements.define("news-feed", NewsFeed);
 
+/* ---- Software ---- */
+/* Icon-only links: each carries title + aria-label so the target stays
+   identifiable without the text label. GitHub mark matches the sidebar's. */
+const SW_ICONS = {
+  link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5v12a2 2 0 0 0-2 2"/><path d="M7 8h7M7 11h7"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.56-.3-5.26-1.28-5.26-5.7 0-1.26.45-2.3 1.19-3.1-.12-.3-.52-1.49.11-3.1 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.61.23 2.8.11 3.1.74.8 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.05.78 2.12v3.14c0 .31.21.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>`,
+  conda: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 8v8a2 2 0 0 1-1 1.73l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.73l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>`,
+  rpkg: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><text x="12" y="16.6" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">R</text></svg>`
+};
+
+/* CRAN and Bioconductor share the R glyph — no tool currently offers both,
+   and the title/aria-label distinguishes them. */
+function swLinks(s) {
+  return [["Documentation", s.link, "link"], ["Source on GitHub", s.github, "github"],
+          ["conda package", s.conda, "conda"], ["CRAN package", s.cran, "rpkg"],
+          ["Bioconductor package", s.bioc, "rpkg"]]
+    .filter(([, href]) => href)
+    .map(([label, href, icon]) =>
+      `<a class="sw__link" href="${href}" target="_blank" rel="noopener" title="${label}" aria-label="${s.name} — ${label}">${SW_ICONS[icon]}</a>`)
+    .join("");
+}
+
+/* Popover holds real links, so it must stay reachable: it keeps pointer
+   events, and a short close delay lets the cursor travel into it. Tiles are
+   buttons so touch (no hover) and keyboard both work. */
+let _swPop = null, _swTimer = null, _swOpen = null;
+function swEnsurePop() {
+  if (!_swPop) {
+    _swPop = document.createElement("div");
+    _swPop.className = "sw-pop";
+    _swPop.addEventListener("mouseenter", () => clearTimeout(_swTimer));
+    _swPop.addEventListener("mouseleave", swHideSoon);
+    document.body.appendChild(_swPop);
+  }
+  return _swPop;
+}
+function swHideSoon() { clearTimeout(_swTimer); _swTimer = setTimeout(swHide, 220); }
+function swHide() {
+  if (!_swPop) return;
+  _swPop.classList.remove("is-on");
+  if (_swOpen) { _swOpen.setAttribute("aria-expanded", "false"); _swOpen = null; }
+}
+function swShow(s, el) {
+  clearTimeout(_swTimer);
+  const pop = swEnsurePop();
+  pop.innerHTML = `<div class="sw-pop__name">${s.mark || s.name}</div>
+    <p class="sw-pop__desc">${s.desc}</p>
+    <div class="sw__links">${swLinks(s)}</div>`;
+  pop.classList.add("is-on");
+  if (_swOpen && _swOpen !== el) _swOpen.setAttribute("aria-expanded", "false");
+  _swOpen = el; el.setAttribute("aria-expanded", "true");
+  const r = el.getBoundingClientRect(), pr = pop.getBoundingClientRect();
+  let top = r.bottom + 10;
+  if (top + pr.height > window.innerHeight - 8) top = Math.max(8, r.top - pr.height - 10);
+  let left = r.left + r.width / 2 - pr.width / 2;
+  left = Math.max(8, Math.min(left, window.innerWidth - pr.width - 8));
+  pop.style.top = top + "px";
+  pop.style.left = left + "px";
+}
+
+class SoftwareList extends HTMLElement {
+  connectedCallback() {
+    if (typeof SOFTWARE === "undefined") return;
+    this.innerHTML = `<div class="sw-row">${SOFTWARE.map((s, i) =>
+      `<button class="sw-tile" data-i="${i}" aria-expanded="false"
+               aria-label="${s.name} — details and links">
+        <span class="sw-tile__mark">${s.mark || s.name}</span>
+      </button>`).join("")}</div>`;
+
+    this.querySelectorAll(".sw-tile").forEach((btn) => {
+      const s = SOFTWARE[parseInt(btn.dataset.i, 10)];
+      btn.addEventListener("mouseenter", () => swShow(s, btn));
+      btn.addEventListener("mouseleave", swHideSoon);
+      btn.addEventListener("focus", () => swShow(s, btn));
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        btn.getAttribute("aria-expanded") === "true" ? swHide() : swShow(s, btn);
+      });
+    });
+  }
+}
+customElements.define("software-list", SoftwareList);
+
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") swHide(); });
+window.addEventListener("scroll", swHide, true);
+
 /* ---- Publications ---- */
 const PUB_LINK_LABELS = { pdf: "PDF", code: "Code", server: "Server", doc: "Data", link: "Link" };
 function pubLink(type, href, label) {
@@ -301,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
     members: typeof MEMBERS !== "undefined" ? MEMBERS.length : 0,
     alumni: typeof ALUMNI !== "undefined" ? ALUMNI.length : 0,
     news: typeof NEWS !== "undefined" ? NEWS.length : 0,
+    software: typeof SOFTWARE !== "undefined" ? SOFTWARE.length : 0,
   };
   document.querySelectorAll("[data-count]").forEach((el) => {
     const v = counts[el.getAttribute("data-count")];
