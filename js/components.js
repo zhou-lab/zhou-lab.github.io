@@ -262,6 +262,12 @@ const SW_ICONS = {
   rpkg: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><text x="12" y="16.6" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">R</text></svg>`
 };
 
+/* The tile itself links here — the same target as the popover's first icon,
+   falling back to the repo when a tool has no docs site. */
+function swHome(s) { return s.link || s.github || ""; }
+
+const SW_HOVER = window.matchMedia("(hover: hover) and (pointer: fine)");
+
 /* CRAN and Bioconductor share the R glyph — no tool currently offers both,
    and the title/aria-label distinguishes them. */
 function swLinks(s) {
@@ -315,11 +321,18 @@ function swShow(s, el) {
 class SoftwareList extends HTMLElement {
   connectedCallback() {
     if (typeof SOFTWARE === "undefined") return;
-    this.innerHTML = `<div class="sw-row">${SOFTWARE.map((s, i) =>
-      `<button class="sw-tile" data-i="${i}" aria-expanded="false"
-               aria-label="${s.name} — details and links">
-        <span class="sw-tile__mark">${s.mark || s.name}</span>
-      </button>`).join("")}</div>`;
+    this.innerHTML = `<div class="sw-row">${SOFTWARE.map((s, i) => {
+      const href = swHome(s);
+      const label = href ? `${s.name} — documentation` : `${s.name} — details and links`;
+      return href
+        ? `<a class="sw-tile" data-i="${i}" href="${href}" target="_blank" rel="noopener"
+              aria-expanded="false" aria-label="${label}">
+            <span class="sw-tile__mark">${s.mark || s.name}</span>
+          </a>`
+        : `<button class="sw-tile" data-i="${i}" aria-expanded="false" aria-label="${label}">
+            <span class="sw-tile__mark">${s.mark || s.name}</span>
+          </button>`;
+    }).join("")}</div>`;
 
     this.querySelectorAll(".sw-tile").forEach((btn) => {
       const s = SOFTWARE[parseInt(btn.dataset.i, 10)];
@@ -327,6 +340,11 @@ class SoftwareList extends HTMLElement {
       btn.addEventListener("mouseleave", swHideSoon);
       btn.addEventListener("focus", () => swShow(s, btn));
       btn.addEventListener("click", (e) => {
+        /* With hover, the popover is already open, so the click is a plain
+           navigation. Without it (touch), the first tap opens the popover so
+           the other registry links stay reachable; a second tap follows the
+           link. A tile with no home page keeps the old toggle behaviour. */
+        if (btn.tagName === "A" && (SW_HOVER.matches || btn.getAttribute("aria-expanded") === "true")) return;
         e.preventDefault();
         btn.getAttribute("aria-expanded") === "true" ? swHide() : swShow(s, btn);
       });
