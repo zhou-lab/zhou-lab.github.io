@@ -1,6 +1,9 @@
 /* ============================================================
    Lab software (order = display order).
-   fields: name, desc, link (docs), github,
+   fields: name, desc, link (docs), github (one URL, or {tag: URL} when the tool
+           is split across repos — SeSAMe and MethScope each ship an R
+           package and a separate C command line. Tag "CLI" draws the
+           terminal glyph, anything else the GitHub mark),
            conda (anaconda.org), cran, bioc (Bioconductor),
            mark (two-tone wordmark HTML; the <span> half renders in the
            accent colour, mirroring .s-brand__name "Zhou<span>Lab</span>").
@@ -32,7 +35,10 @@ const SOFTWARE = [
     mark: 'Meth<span>Scope</span>',
     desc: "Ultra-fast analysis of sparse methylomes via recurrent methylation patterns — annotate, deconvolve, impute and embed single-cell and spatial data.",
     link: "https://zhou-lab.github.io/MethScope/",
-    github: "https://github.com/zhou-lab/MethScope",
+    github: {
+      "R": "https://github.com/zhou-lab/MethScope",
+      "CLI": "https://github.com/zhou-lab/methscope-cli"
+    },
     cran: "https://cran.r-project.org/package=MethScope"
   },
   {
@@ -40,7 +46,10 @@ const SOFTWARE = [
     mark: 'Se<span>SAMe</span>',
     desc: "SEnsible Step-wise Analysis of DNA MEthylation — IDAT to betas, QC, differential methylation and copy number, as a single C binary or the R package.",
     link: "https://zwdzwd.github.io/sesame-cli/",
-    github: "https://github.com/zwdzwd/sesame-cli",
+    github: {
+      "CLI": "https://github.com/zwdzwd/sesame-cli",
+      "R": "https://github.com/zwdzwd/sesame"
+    },
     conda: "https://anaconda.org/zhou-lab/sesame-cli",
     bioc: "https://bioconductor.org/packages/sesame"
   },
