@@ -400,13 +400,30 @@ class PubsList extends HTMLElement {
       this.innerHTML = PUBS.filter((p) => !p.prelab).slice(0, limit).map(pubItem).join("");
       return;
     }
-    let html = "", lastYear = null, dividerShown = false;
+    /* Group into consecutive year runs, each rendered as a <details> that is
+       collapsed by default. The prelab divider breaks the run so a year that
+       spans both sections (none currently) would still split correctly. */
+    const groups = [];
+    let cur = null;
     PUBS.forEach((p) => {
-      if (p.prelab && !dividerShown) { html += `<p class="pub-divider">Prior to the Zhou Lab</p>`; dividerShown = true; lastYear = null; }
-      if (p.year !== lastYear) { html += `<h2 class="pub-year">${p.year}</h2>`; lastYear = p.year; }
-      html += pubItem(p);
+      const divider = p.prelab && !groups.some((g) => g.prelab);
+      if (!cur || p.year !== cur.year || !!p.prelab !== cur.prelab) {
+        cur = { year: p.year, prelab: !!p.prelab, divider, items: [] };
+        groups.push(cur);
+      }
+      cur.items.push(p);
     });
-    this.innerHTML = html;
+
+    /* Newest year (first group) opens by default; everything older stays folded. */
+    this.innerHTML = groups.map((g, i) => `${g.divider ? `<p class="pub-divider">Prior to the Zhou Lab</p>` : ""}
+      <details class="pub-yr"${i === 0 ? " open" : ""}>
+        <summary class="pub-yr__sum">
+          <svg class="pub-yr__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+          <span class="pub-yr__year">${g.year}</span>
+          <span class="pub-yr__n">${g.items.length}</span>
+        </summary>
+        <div class="pub-yr__body">${g.items.map(pubItem).join("")}</div>
+      </details>`).join("");
   }
 }
 customElements.define("pubs-list", PubsList);

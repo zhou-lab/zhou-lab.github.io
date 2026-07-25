@@ -209,9 +209,27 @@ h1,h2,h3,h4 { font-family: var(--font-head); color: var(--ink); line-height: 1.1
 /* ============================================================
    Publications (dense, grouped by year)
    ============================================================ */
-.pub-year { font-family: var(--font-head); font-size: .92rem; color: var(--accent); margin: 1.1rem 0 .3rem; padding-bottom: .2rem; border-bottom: 1px dashed var(--accent-soft); }
-.pub-year:first-child { margin-top: 0; }
-.pub-divider { color: var(--muted); font-size: .72rem; margin: 1.3rem 0 .2rem; text-transform: uppercase; letter-spacing: .12em; font-family: var(--font-head); }
+/* accordion replaces the whole-panel fold; cap height so many-open years scroll */
+.pub-scroll { max-height: 640px; overflow-y: auto; padding-right: .4rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.pub-scroll::-webkit-scrollbar { width: 8px; }
+.pub-scroll::-webkit-scrollbar-track { background: transparent; }
+.pub-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+.pub-scroll::-webkit-scrollbar-thumb:hover { background: #c8d0dc; }
+
+/* per-year accordion (native <details>) */
+.pub-yr { border-bottom: 1px dashed var(--accent-soft); }
+.pub-yr__sum { display: flex; align-items: center; gap: .5rem; cursor: pointer; list-style: none;
+               padding: .5rem 0; font-family: var(--font-head); user-select: none; }
+.pub-yr__sum::-webkit-details-marker { display: none; }        /* Safari default triangle */
+.pub-yr__sum:hover .pub-yr__year { color: var(--accent-hover); }
+.pub-yr__chev { width: 15px; height: 15px; color: var(--muted); flex: none; transition: transform .18s ease; }
+.pub-yr[open] > .pub-yr__sum .pub-yr__chev { transform: rotate(90deg); }
+.pub-yr__year { font-size: .92rem; font-weight: 600; color: var(--accent); }
+.pub-yr__n { flex: none; width: 1.15rem; height: 1.15rem; display: inline-grid; place-items: center;
+             font-size: .66rem; font-weight: 700; color: var(--accent); background: var(--accent-tint);
+             border: 1px solid var(--accent-soft); border-radius: 50%; }
+.pub-yr__body { padding-bottom: .3rem; }
+.pub-divider { color: var(--muted); font-size: .72rem; margin: 1.1rem 0 .2rem; text-transform: uppercase; letter-spacing: .12em; font-family: var(--font-head); }
 .pub { padding: .5rem 0; border-bottom: 1px solid var(--line); }
 .pub:last-child { border-bottom: 0; }
 .pub__title { color: var(--ink); font-weight: 600; font-family: var(--font-head); font-size: .9rem; line-height: 1.3; letter-spacing: -0.01em; }
