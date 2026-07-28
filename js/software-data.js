@@ -34,12 +34,8 @@ const SOFTWARE = [
     name: "MethScope",
     mark: 'Meth<span>Scope</span>',
     desc: "Ultra-fast analysis of sparse methylomes via recurrent methylation patterns — annotate, deconvolve, impute and embed single-cell and spatial data.",
-    link: "https://zhou-lab.github.io/MethScope/",
-    github: {
-      "R": "https://github.com/zhou-lab/MethScope",
-      "CLI": "https://github.com/zhou-lab/methscope-cli"
-    },
-    cran: "https://cran.r-project.org/package=MethScope"
+    link: "https://zhou-lab.github.io/methscope-cli/",
+    github: "https://github.com/zhou-lab/methscope-cli"
   },
   {
     name: "SeSAMe",
