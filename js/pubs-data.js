@@ -252,8 +252,9 @@ const PUBS = [
   },
   {
     year: 2016, prelab: true,
-    authors: "Liu*, Ohtani*, <u>Zhou*</u>, et al.",
+    authors: "Liu*, Ohtani*, <u>Zhou*</u>, Ørskov, Charlet, Zhang, Shen, Baylin, Liang, Grønbæk, Jones",
     title: "Vitamin C increases viral mimicry induced by 5-aza-2'-deoxycytidine",
+    titleLink: "https://doi.org/10.1073/pnas.1612262113",
     journal: "PNAS",
     pdf: "2016PNAS.pdf"
   },
