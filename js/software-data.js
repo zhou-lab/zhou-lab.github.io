@@ -1,9 +1,9 @@
 /* ============================================================
    Lab software (order = display order).
-   fields: name, desc, link (docs), github (one URL, or {tag: URL} when the tool
-           is split across repos — SeSAMe and MethScope each ship an R
-           package and a separate C command line. Tag "CLI" draws the
-           terminal glyph, anything else the GitHub mark),
+   fields: name, desc, link (docs), github (one URL, or {tag: URL} when a repo
+           needs its own glyph — tag "v2" marks the C rewrite (SeSAMe2,
+           KnowYourCG v2) with a "2" badge, anything else draws the GitHub
+           mark),
            conda (anaconda.org), cran, bioc (Bioconductor),
            mark (two-tone wordmark HTML; the <span> half renders in the
            accent colour, mirroring .s-brand__name "Zhou<span>Lab</span>").
@@ -40,13 +40,13 @@ const SOFTWARE = [
   {
     name: "SeSAMe",
     mark: 'Se<span>SAMe</span>',
-    desc: "SEnsible Step-wise Analysis of DNA MEthylation — IDAT to betas, QC, differential methylation and copy number, as a single C binary or the R package.",
-    link: "https://zwdzwd.github.io/sesame-cli/",
+    desc: "SEnsible Step-wise Analysis of DNA MEthylation — IDAT to betas, QC, differential methylation and copy number, as a single C binary (SeSAMe2) or the R package.",
+    link: "https://zhou-lab.github.io/sesame/",
     github: {
-      "CLI": "https://github.com/zwdzwd/sesame-cli",
+      "v2": "https://github.com/zhou-lab/sesame",
       "R": "https://github.com/zwdzwd/sesame"
     },
-    conda: "https://anaconda.org/zhou-lab/sesame-cli",
+    conda: "https://anaconda.org/zhou-lab/sesame",
     bioc: "https://bioconductor.org/packages/sesame"
   },
   {
@@ -62,7 +62,7 @@ const SOFTWARE = [
     mark: 'Know<span>Your</span>CG',
     desc: "Functional analysis and set enrichment of DNA methylation at CpG resolution, from one C binary and one verified knowledgebase store.",
     link: "https://zhou-lab.github.io/kycg/",
-    github: "https://github.com/zhou-lab/kycg",
+    github: { "v2": "https://github.com/zhou-lab/kycg" },
     conda: "https://anaconda.org/zhou-lab/kycg",
     bioc: "https://bioconductor.org/packages/knowYourCG"
   },

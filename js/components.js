@@ -260,19 +260,20 @@ const SW_ICONS = {
   github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.56-.3-5.26-1.28-5.26-5.7 0-1.26.45-2.3 1.19-3.1-.12-.3-.52-1.49.11-3.1 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.61.23 2.8.11 3.1.74.8 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.05.78 2.12v3.14c0 .31.21.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>`,
   conda: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 8v8a2 2 0 0 1-1 1.73l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.73l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>`,
   rpkg: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><text x="12" y="16.6" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">R</text></svg>`,
-  cli: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7.5 10 2.5 2.5-2.5 2.5M13.5 15H17"/></svg>`
+  v2: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/><text x="12" y="16.6" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">2</text></svg>`
 };
 
-/* `github` is one URL, or {tag: URL} when a tool is split across repos —
-   SeSAMe and MethScope each ship an R package and a separate C command line.
-   Two GitHub marks side by side are indistinguishable, and the tooltip that
-   told them apart needs a hover that touch never delivers, so the CLI repo
-   takes the terminal glyph. Any other tag keeps the GitHub mark. */
+/* `github` is one URL, or {tag: URL} when a repo needs its own glyph —
+   SeSAMe ships an R package and a separate C rewrite, and KnowYourCG's C
+   rewrite sits beside its Bioconductor package. Two GitHub marks side by
+   side are indistinguishable, and the tooltip that told them apart needs a
+   hover that touch never delivers, so the tag "v2" draws a "2" badge in the
+   style of the R box. Any other tag keeps the GitHub mark. */
 function swRepos(s) {
   if (!s.github) return [];
   if (typeof s.github === "string") return [["Source on GitHub", s.github, "github"]];
   return Object.entries(s.github)
-    .map(([tag, href]) => [`${tag} source on GitHub`, href, tag === "CLI" ? "cli" : "github"]);
+    .map(([tag, href]) => [`${tag} source on GitHub`, href, tag === "v2" ? "v2" : "github"]);
 }
 
 /* The tile itself links here — the same target as the popover's first icon,
