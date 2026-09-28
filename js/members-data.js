@@ -15,6 +15,8 @@ const MEMBERS = [
     bio: "Bioengineering PhD student developing methods for spatial and sparse DNA methylome analysis." },
   { name: "Hao Xu", role: "Graduate Student", dates: "2024–", meta: "UPenn Bioengineering", photo: "member_HaoXu2.jpg",
     bio: "Bioengineering PhD student working on scalable analysis of sparse single-cell DNA methylomes." },
+  { name: "Zifeng (Andy) Li", role: "Research Technician", dates: "2026–", meta: "Children's Hospital of Philadelphia", photo: "member_ZifengLi.jpg",
+    bio: "Research technician with a B.S. in Biological Sciences from UC Irvine, joining from the Penn Bioengineering M.S. program. Brings hands-on experience in spatial joint profiling of the DNA methylome and transcriptome." },
   { name: "Chang Su", role: "Master Research Intern", dates: "2025–", meta: "University of Pennsylvania", photo: IMG_PLACEHOLDER,
     bio: "Master's research intern contributing to computational epigenetics projects in the lab." },
   { name: "Namju Kim", role: "VMD-PhD Rotation Student", dates: "2026–", meta: "UPenn Genomics & Computational Biology", photo: IMG_PLACEHOLDER,
