@@ -8,6 +8,12 @@
    ============================================================ */
 const NEWS = [
   {
+    date: "2026-09-28",
+    tag: "Lab",
+    title: "Welcome to Zifeng (Andy) Li, who joined the lab as a research technician.",
+    link: ""
+  },
+  {
     date: "2026-06-30",
     tag: "Paper",
     title: "Our Sparse-Seq work, in collaboration with the Kohli lab, is accepted to NAR Genomics and Bioinformatics.",
